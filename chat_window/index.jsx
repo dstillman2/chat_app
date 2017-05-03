@@ -9,6 +9,8 @@ import ChatWindow from './components/framework/window';
 import TopBar from './components/framework/topbar';
 import Body from './components/framework/body';
 
+import draggable from './lib/dragdrop';
+
 // If an invalid configuration file is supplied, throw an error.
 const configType = typeof config;
 
@@ -27,7 +29,11 @@ if (configType !== 'object' || configType === null) {
 const chatWindow = (
   <Provider store={store}>
     <ChatWindow>
-      <TopBar />
+      <TopBar>
+        <div id="move-cursor-box">
+          Logo
+        </div>
+      </TopBar>
       <Body />
     </ChatWindow>
   </Provider>
@@ -38,3 +44,8 @@ ReactDOM.render(
   chatWindow,
   document.getElementById('app'),
 );
+
+// Initiate draggable code if the window is draggable
+if (config.draggable) {
+  draggable();
+}

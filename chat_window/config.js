@@ -1,5 +1,8 @@
 const config = {
   initialNode: 0,
+  draggable: true,
+  minWidth: 350,
+  minHeight: 400,
 
   nodes: {
     0: {
@@ -21,7 +24,7 @@ const config = {
           links: [
             {
               name: 'Home',
-              linkTo: 1,
+              linkTo: 2,
             },
             {
               name: 'Existing Service',
