@@ -1,0 +1,17 @@
+#ds-chat-window {
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  background: #FFF;
+  color: #FFF;
+  box-shadow: 1px 2px 1px #999; }
+  #ds-chat-window .topbar {
+    background: #FF0;
+    height: 35px; }
+  #ds-chat-window .ds-body {
+    height: 100%;
+    background: #000; }
+  #ds-chat-window .ds-body {
+    padding: 15px; }
+
+/*# sourceMappingURL=style.css.map */
