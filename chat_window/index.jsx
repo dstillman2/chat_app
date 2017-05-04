@@ -45,7 +45,7 @@ ReactDOM.render(
   document.getElementById('app'),
 );
 
-// Initiate draggable code if the window is draggable
+// Initiate draggable code if draggable config parameter is set
 if (config.draggable) {
-  draggable();
+  draggable('ds-chat-window');
 }
