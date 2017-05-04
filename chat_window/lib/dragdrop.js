@@ -1,5 +1,16 @@
-function createBorderDrag(left, top, width, height) {
+// @flow
+
+// Create and inject an element with the same width and height as the chat
+// window.
+const createBorderDrag = function createBorderDrag(
+  left: string,
+  top: string,
+  width: string,
+  height: string,
+): Element {
+  const body = document.querySelector('body');
   const elem = document.createElement('div');
+
   elem.style.position = 'fixed';
   elem.style.left = left;
   elem.style.top = top;
@@ -7,80 +18,87 @@ function createBorderDrag(left, top, width, height) {
   elem.style.height = height;
   elem.style.border = '5px solid #F1F1F1';
 
-  const body = document.querySelector('body');
-
   body.appendChild(elem);
 
   return elem;
-}
+};
 
-function dragAndDrop() {
-  const o = document.getElementsByClassName('topbar')[0];
-  const win = document.getElementById('ds-chat-window');
-  let isBorder = null;
-  let holderLeft = '';
-  let holderTop = '';
+const dragAndDrop = function dragAndDrop(elem: string) {
+  const chatWin = document.getElementById(elem);
+  const topbar = document.getElementsByClassName('topbar')[0];
 
-  o.addEventListener('mousedown', (mouseDownEvt) => {
+  let borderElem = null;
+  let positionLeft = '';
+  let positionTop = '';
+
+  topbar.addEventListener('mousedown', (mouseDownEvt) => {
     // Get topbar position relative to viewport
-    const topbar = document.getElementsByClassName('topbar')[0];
     const topBarPosition = topbar.getBoundingClientRect();
 
-    win.style.opacity = '0.6';
-    // Get distance to top left corner of the window relative to where the mouse
+    // Reduce opacity
+    chatWin.style.opacity = '0.6';
+
+    // Get distance to top left corner of the chatWindow relative to where the mouse
     // clicked
     const topbarDeltaX = mouseDownEvt.clientX - topBarPosition.left;
     const topbarDeltaY = mouseDownEvt.clientY - topBarPosition.top;
 
     document.onmousemove = (evt) => {
-      const winDimensions = win.getBoundingClientRect();
+      const chatWinDimensions = chatWin.getBoundingClientRect();
       const docWidth = document.body.clientWidth;
       const docHeight = document.body.clientHeight;
 
-      // Calculate the left and top position of the main chat window
-      let newWindowLeftPosition = evt.clientX - topbarDeltaX;
-      let newWindowTopPosition = evt.clientY - topbarDeltaY;
+      // Calculate the left and top position of the main chat chatWindow
+      let newchatWindowLeftPosition = evt.clientX - topbarDeltaX;
+      let newchatWindowTopPosition = evt.clientY - topbarDeltaY;
 
-      // Set limitations for the chat window
-      if (newWindowLeftPosition < 0) {
-        newWindowLeftPosition = 0;
-      } else if (newWindowLeftPosition + winDimensions.width > docWidth) {
-        newWindowLeftPosition = docWidth - winDimensions.width;
+      // Set limitations for the chat chatWindow
+      if (newchatWindowLeftPosition < 0) {
+        newchatWindowLeftPosition = 0;
+      } else if (newchatWindowLeftPosition + chatWinDimensions.width > docWidth) {
+        newchatWindowLeftPosition = docWidth - chatWinDimensions.width;
       }
 
-      if (newWindowTopPosition < 0) {
-        newWindowTopPosition = 0;
-      } else if (newWindowTopPosition + winDimensions.height > docHeight) {
-        newWindowTopPosition = docHeight - winDimensions.height;
+      if (newchatWindowTopPosition < 0) {
+        newchatWindowTopPosition = 0;
+      } else if (newchatWindowTopPosition + chatWinDimensions.height > docHeight) {
+        newchatWindowTopPosition = docHeight - chatWinDimensions.height;
       }
 
-      holderLeft = `${newWindowLeftPosition}px`;
-      holderTop = `${newWindowTopPosition}px`;
+      positionLeft = `${newchatWindowLeftPosition}px`;
+      positionTop = `${newchatWindowTopPosition}px`;
 
-      if (isBorder) {
-        isBorder.parentElement.removeChild(isBorder);
-
-        isBorder = null;
+      if (borderElem) {
+        borderElem.style.left = positionLeft;
+        borderElem.style.top = positionTop;
+      } else {
+        borderElem = createBorderDrag(
+          positionLeft,
+          positionTop,
+          chatWinDimensions.width,
+          chatWinDimensions.height,
+        );
       }
-
-      isBorder = createBorderDrag(holderLeft, holderTop, winDimensions.width, winDimensions.height);
     };
   });
 
+  // The onmouseup listener removes the drag border, restores opacity and removes
+  // the onmousemove callback.
   document.addEventListener('mouseup', () => {
-    const win = document.getElementById('ds-chat-window');
+    chatWin.style.opacity = 1;
 
-    win.style.opacity = 1;
+    if (borderElem) {
+      borderElem.parentElement.removeChild(borderElem);
 
-    if (isBorder) {
-      isBorder.parentElement.removeChild(isBorder);
-      isBorder = null;
+      borderElem = null;
     }
 
-    win.style.left = holderLeft;
-    win.style.top = holderTop;
+    chatWin.style.left = positionLeft;
+    chatWin.style.top = positionTop;
     document.onmousemove = () => {};
   });
-}
+};
 
 export default dragAndDrop;
+
+export { createBorderDrag };
