@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import setNode from '../../actions/setNode';
+import setNode from '../../actions/set_node';
 
 /**
  * Parent component containing all chat framework nodes
