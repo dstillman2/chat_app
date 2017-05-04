@@ -13,7 +13,7 @@ const createOnChangeFunc = (dispatch: () => void, formFieldId: number) => (
   (e: any) => {
     e.preventDefault();
 
-    const value: string = e.target;
+    const value: string = e.target.value;
 
     dispatch(updateFormField(formFieldId, value));
   }
