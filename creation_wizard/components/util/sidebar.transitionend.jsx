@@ -1,13 +1,12 @@
 import store from '../../store';
 import { setNodes } from '../../actions/sidebar.actions';
 
-const onTransitionEnd = ({ element, nextNode, activeNode, priorNode }) =>
+const onTransitionEnd = ({ element, nextNode, priorNode }) =>
   () => {
-    store.dispatch(setNodes(
-      nextNode,
-      activeNode,
-      priorNode,
-    ));
+    store.dispatch(setNodes({
+      nextNode: null,
+      activeNode: nextNode || priorNode,
+    }));
 
     element.style.transition = '';
 

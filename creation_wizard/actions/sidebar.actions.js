@@ -13,7 +13,7 @@ function setSliderElem() {
 /**
  * Set a group of nodes: nextNode, activeNode, priorNode.
  */
-function setNodes(nextNode, activeNode, priorNode) {
+function setNodes({ nextNode, activeNode, priorNode }) {
   return {
     type: 'SET_NODES',
     nextNode,
