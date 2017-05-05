@@ -1,0 +1,16 @@
+#main {
+  float: left;
+  display: block;
+  width: calc(100% - #{$sidebar-width});
+  height: calc(100% - #{$footer-height});
+
+  .region {
+    margin: 15px;
+    margin-right: 25px;
+    padding: 35px;
+    min-width: 350px;
+    height: calc(100% - 15px);
+    background: #FFF;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  }
+}

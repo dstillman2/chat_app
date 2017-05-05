@@ -26,10 +26,11 @@ if (isProduction) {
 module.exports = {
   entry: {
     web: path.join(__dirname, 'chat_window', 'index.jsx'),
+    wizard: path.join(__dirname, 'creation_wizard', 'index.jsx'),
   },
 
   output: {
-    path: path.join(__dirname, 'chat_window', 'static'),
+    path: path.join(__dirname, 'static'),
     filename: `[name].${filename}`,
   },
 

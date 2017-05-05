@@ -1,0 +1,80 @@
+$list-height: 50px;
+
+#sidebar {
+  display: block;
+  float: left;
+  overflow: hidden;
+  width: $sidebar-width;
+  height: calc(100% - #{$footer-height});
+  margin-right: -15px;
+
+  .logo {
+    width: 50px;
+    height: 30px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 40px;
+
+    img {
+      margin: 0 auto;
+      max-width: 100%;
+    }
+  }
+
+  .sidebar-slide {
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .navigation {
+    display: inline-block;
+    margin-top: 100px;
+    width: $sidebar-width;
+
+    ul {
+      text-align: center;
+      padding: 0;
+
+      li {
+        display: block;
+        transition: 0.2s;
+        list-style-type: none;
+        height: $list-height;
+        line-height: $list-height;
+
+        &:hover {
+          a {
+            text-decoration: underline!important;
+          }
+        }
+
+        &.active {
+          background: #DEDEDE;
+
+          a {
+            cursor: default;
+            text-decoration: none!important;
+          }
+        }
+
+        a {
+          display: block;
+          width: 100%;
+          height: 100%;
+          color: #666;
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 0.85em;
+
+          &:hover {
+            text-decoration: none;
+          }
+
+          &:focus {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
