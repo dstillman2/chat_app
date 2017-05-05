@@ -1,7 +1,7 @@
 // @flow
 
 // Create and inject an element with the same width and height as the chat
-// window.
+// window. This is the border they see when they are dragging the window.
 const createBorderDrag = function createBorderDrag(
   left: string,
   top: string,
