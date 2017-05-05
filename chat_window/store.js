@@ -17,6 +17,12 @@ const store = createStore(
     settings: {
       // Initial node is the root node of the node tree
       nodeId: config.initialNode,
+
+      draggable: config.draggable,
+
+      minWidth: config.minWidth,
+
+      minHeight: config.minHeight,
     },
 
     // READ ONLY. Do not write over the configuration file.
