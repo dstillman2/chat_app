@@ -9,7 +9,6 @@ const config = {
       type: 'survey',
       title: 'XYZ Survey',
       theme: 'test-theme',
-      draggable: true,
       width: 350,
       height: 470,
       content: [
