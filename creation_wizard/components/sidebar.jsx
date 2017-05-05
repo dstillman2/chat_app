@@ -51,17 +51,14 @@ function Sidebar(props) {
       element: props.element,
       nextNode: props.nextNode,
     }));
-  }
-
-  if (priorReactElement) {
+  } else if (priorReactElement) {
     const sidebarSlideElement = props.element.children[0];
 
     applyCss = {
       transform: `translateX(-${props.width}px)`,
     };
 
-    // Two requestAnimationFrames as you want execution prior to the second
-    // repaint.
+    // Two requestAnimationFrames to execute prior to the second repaint
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         sidebarSlideElement.style.transition = '0.2s ease-in';
@@ -81,9 +78,7 @@ function Sidebar(props) {
         className="sidebar-slide"
         style={applyCss}
       >
-        {
-          elems
-        }
+        {elems}
       </div>
     </div>
   );

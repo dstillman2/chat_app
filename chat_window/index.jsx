@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import config from './config';
@@ -8,8 +7,6 @@ import store from './store';
 import ChatWindow from './components/framework/window';
 import TopBar from './components/framework/topbar';
 import Body from './components/framework/body';
-
-import draggable from './lib/dragdrop';
 
 // If an invalid configuration file is supplied, throw an error.
 const configType = typeof config;
@@ -39,13 +36,8 @@ const chatWindow = (
   </Provider>
 );
 
-// Initialize and render elements
-ReactDOM.render(
-  chatWindow,
-  document.getElementById('app'),
-);
+export default chatWindow;
 
-// Initiate draggable code if draggable config parameter is set
-if (config.draggable) {
-  draggable('ds-chat-window');
-}
+export {
+  store as chatWindowStore,
+};
