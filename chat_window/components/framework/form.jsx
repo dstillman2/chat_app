@@ -23,11 +23,7 @@ const createOnChangeFunc = (dispatch: () => void, formFieldId: number) => (
 const getValue = (fieldsList: any, fieldId: number) => {
   const fieldParam = fieldsList[fieldId];
 
-  if (typeof fieldParam === 'object') {
-    return fieldParam.value;
-  }
-
-  return '';
+  return fieldParam ? fieldParam.value : '';
 };
 
 /**

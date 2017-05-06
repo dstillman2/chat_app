@@ -17,6 +17,8 @@ const store = createStore(
 
       priorNode: null,
     },
+
+    main: {},
   },
   applyMiddleware(thunk),
 );

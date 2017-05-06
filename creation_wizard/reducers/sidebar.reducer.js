@@ -5,6 +5,11 @@
  */
 function sidebar(state = {}, action) {
   switch (action.type) {
+    case 'SET_WIDTH':
+      return Object.assign({}, state, {
+        width: action.width,
+      });
+
     case 'SET_SLIDER_ELEMENT':
       return Object.assign({}, state, {
         element: action.value,
@@ -25,6 +30,11 @@ function sidebar(state = {}, action) {
     case 'SET_PRIOR_NODE':
       return Object.assign({}, state, {
         priorNode: action.value,
+      });
+
+    case 'UPDATE_WIDTHS':
+      return Object.assign({}, state, {
+        width: action.sidebarWidth,
       });
     default:
       return state;

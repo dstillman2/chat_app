@@ -1,16 +1,36 @@
 import store from '../../store';
-import { setNodes } from '../../actions/sidebar.actions';
+import { setNodes, setWidth } from '../../actions/sidebar.actions';
 
-const onTransitionEnd = ({ element, nextNode, priorNode }) =>
-  () => {
+const onTransitionEndSidebar = ({ element, nextNode, priorNode }) => {
+  function listener() {
     store.dispatch(setNodes({
       nextNode: null,
       activeNode: nextNode || priorNode,
     }));
 
     element.style.transition = '';
+    element.style.transform = '';
 
-    element.removeEventListener('transitionend', onTransitionEnd);
-  };
+    element.removeEventListener('transitionend', listener);
+  }
 
-export default onTransitionEnd;
+  return listener;
+};
+
+const onTransitionEndMain = ({ element, sidebarWidth }) => {
+  function listener() {
+    store.dispatch(setWidth(sidebarWidth));
+
+    element.style.transition = '';
+    element.style.transform = '';
+
+    element.removeEventListener('transitionend', listener);
+  }
+
+  return listener;
+};
+
+export {
+  onTransitionEndSidebar,
+  onTransitionEndMain,
+};

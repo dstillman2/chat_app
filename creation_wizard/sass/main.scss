@@ -1,16 +1,18 @@
 #main {
-  float: left;
+  float: right;
   display: block;
-  width: calc(100% - #{$sidebar-width});
   height: calc(100% - #{$footer-height});
+  will-change: transform;
+  position: relative;
+  z-index: 5;
+  background: #F1F1F1;
 
   .region {
-    margin: 15px;
-    margin-right: 25px;
+    margin: 35px 0 15px 0;
     padding: 35px;
     min-width: 350px;
     height: calc(100% - 15px);
-    background: #FFF;
+    background: #F9F9F9;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
   }
 }

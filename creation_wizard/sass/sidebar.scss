@@ -4,7 +4,6 @@ $list-height: 50px;
   display: block;
   float: left;
   overflow: hidden;
-  width: $sidebar-width;
   height: calc(100% - #{$footer-height});
   margin-right: -15px;
 
@@ -29,7 +28,6 @@ $list-height: 50px;
   .navigation {
     display: inline-block;
     margin-top: 100px;
-    width: $sidebar-width;
 
     ul {
       text-align: center;
@@ -44,7 +42,7 @@ $list-height: 50px;
 
         &:hover {
           a {
-            text-decoration: underline!important;
+            background: #e4e4e4;
           }
         }
 
@@ -53,7 +51,7 @@ $list-height: 50px;
 
           a {
             cursor: default;
-            text-decoration: none!important;
+            background: #e4e4e4;
           }
         }
 
@@ -76,5 +74,10 @@ $list-height: 50px;
         }
       }
     }
+  }
+
+  .routing {
+    display: inline-block;
+    vertical-align: top;
   }
 }

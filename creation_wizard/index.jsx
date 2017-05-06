@@ -9,7 +9,8 @@ import Footer from './components/footer';
 
 import store from './store';
 import { setSliderElem } from './actions/sidebar.actions';
-import chatWindow, { chatWindowStore } from '../chat_window/index';
+import { setMainElem } from './actions/main.actions';
+// import chatWindow, { chatWindowStore } from '../chat_window/index';
 
 import draggable from '../lib-shared/func/dragdrop';
 
@@ -32,11 +33,9 @@ function Chat(props) {
 ReactDOM.render(
   <Provider store={store}>
     <Workspace>
+      <Footer />
       <Sidebar />
       <Main />
-      <div className="clearfix" />
-      <Footer />
-      <Chat chat={chatWindow} store={chatWindowStore} />
     </Workspace>
   </Provider>,
   document.getElementById('app'),
@@ -44,3 +43,4 @@ ReactDOM.render(
 
 // Set store defaults after DOM populated
 store.dispatch(setSliderElem());
+store.dispatch(setMainElem());

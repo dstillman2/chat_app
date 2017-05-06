@@ -6,7 +6,9 @@ function fields(state = [], action) {
   switch (action.type) {
     case 'UPDATE_FORM_FIELD':
       return Object.assign({}, state, {
-        [action.formFieldId]: action.value,
+        [action.formFieldId]: {
+          value: action.value,
+        },
       });
     default:
       return state;

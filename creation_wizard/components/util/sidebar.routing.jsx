@@ -13,10 +13,10 @@ function getElement(elemStr) {
 
   switch (elemStr) {
     case 'navigation':
-      elem = <Navigation key="navigation" />;
+      elem = <Navigation key="navigation" width={250} />;
       break;
     case 'routing':
-      elem = <Routing key="routing" />;
+      elem = <Routing key="routing" width={350} />;
       break;
     case 'style':
       elem = <Style key="style" />;

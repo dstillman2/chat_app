@@ -3,21 +3,27 @@ import { connect } from 'react-redux';
 
 import routeTo from './util/navigation.routeTo';
 
-function Navigation() {
+function Navigation(props) {
   return (
-    <div className="navigation">
+    <div
+      className="navigation"
+      style={{ width: props.width }}
+    >
       <div className="logo">
         <img alt="" src="./static/img/logo.png" />
       </div>
       <ul>
         <li>
-          <a href="#chat-routing" onClick={routeTo('routing')}>Chat Routing</a>
+          <a href="#chat-routing" onClick={routeTo('routing')}>Routing</a>
         </li>
         <li>
-          <a href="#style" onClick={routeTo('style')}>Customize Style</a>
+          <a href="#style" onClick={routeTo('style')}>Style</a>
         </li>
         <li>
           <a href="#settings" onClick={routeTo('settings')}>Settings</a>
+        </li>
+        <li>
+          <a href="#embed" onClick={routeTo('settings')}>Embed</a>
         </li>
       </ul>
     </div>

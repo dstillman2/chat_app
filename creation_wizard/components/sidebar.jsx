@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import getReactComponent from './util/sidebar.routing';
-import onTransitionEnd from './util/sidebar.transitionend';
+import { onTransitionEndSidebar, onTransitionEndMain } from './util/sidebar.transitionend';
 
 /**
  * Sidebar component
@@ -19,16 +19,6 @@ import onTransitionEnd from './util/sidebar.transitionend';
  * @returns {Node} sidebar component
  */
 function Sidebar(props) {
-  if (props.nextNode && props.priorNode) {
-    const error = new Error();
-
-    error.message = (
-      'Sidebar component: cannot set nextNode and priorNode simultaneously'
-    );
-
-    throw error;
-  }
-
   const activeReactElement = getReactComponent(props.activeNode);
   const nextReactElement = getReactComponent(props.nextNode);
   const priorReactElement = getReactComponent(props.priorNode);
@@ -42,20 +32,31 @@ function Sidebar(props) {
   let applyCss = {};
 
   if (nextReactElement) {
+    const deltaMainWidth = nextReactElement.props.width - props.width;
+
     applyCss = {
       transform: `translateX(-${props.width}px)`,
       transition: '0.2s ease-in',
     };
 
-    props.element.addEventListener('transitionend', onTransitionEnd({
+    props.mainElement.style.transition = '0.2s ease-in';
+    props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
+
+    props.mainElement.addEventListener('transitionend', onTransitionEndMain({
+      sidebarWidth: nextReactElement.props.width,
+      element: props.mainElement,
+    }));
+
+    props.element.addEventListener('transitionend', onTransitionEndSidebar({
       element: props.element,
       nextNode: props.nextNode,
     }));
   } else if (priorReactElement) {
     const sidebarSlideElement = props.element.children[0];
+    const deltaMainWidth = priorReactElement.props.width - props.width;
 
     applyCss = {
-      transform: `translateX(-${props.width}px)`,
+      transform: `translateX(-${priorReactElement.props.width}px)`,
     };
 
     // Two requestAnimationFrames to execute prior to the second repaint
@@ -66,14 +67,23 @@ function Sidebar(props) {
       });
     });
 
-    props.element.addEventListener('transitionend', onTransitionEnd({
+    props.mainElement.style.transition = '0.2s ease-in';
+    props.mainElement.style.width = `calc(100% - ${props.width}px)`;
+
+    props.mainElement.addEventListener('transitionend', onTransitionEndMain({
+      sidebarWidth: priorReactElement.props.width,
+      element: props.mainElement,
+    }));
+
+    props.element.addEventListener('transitionend', onTransitionEndSidebar({
       element: props.element,
       priorNode: props.priorNode,
+      sidebarWidth: priorReactElement.props.width,
     }));
   }
 
   return (
-    <div id="sidebar">
+    <div id="sidebar" style={{ width: props.width }}>
       <div
         className="sidebar-slide"
         style={applyCss}
@@ -98,4 +108,8 @@ Sidebar.propTypes = {
   element: PropTypes.any,
 };
 
-export default connect(state => state.sidebar)(Sidebar);
+const mapStateToProps = (state) => {
+  return Object.assign({}, state.sidebar, { mainElement: state.main.element });
+};
+
+export default connect(mapStateToProps)(Sidebar);

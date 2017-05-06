@@ -11,7 +11,18 @@ function setSliderElem() {
 }
 
 /**
- * Set a group of nodes: nextNode, activeNode, priorNode.
+ * Set width of sidebar
+ */
+function setWidth(width) {
+  console.log('set width');
+  return {
+    type: 'SET_WIDTH',
+    width,
+  };
+}
+
+/**
+ * Set a group of nodes: nextNode, activeNode, priorNode. Also set width.
  */
 function setNodes({ nextNode, activeNode, priorNode }) {
   return {
@@ -61,4 +72,5 @@ export {
   setNextNode,
   setPriorNode,
   setActiveNode,
+  setWidth,
 };

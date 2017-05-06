@@ -8,7 +8,6 @@ body {
   display: block;
   float: left;
   overflow: hidden;
-  width: 250px;
   height: calc(100% - 70px);
   margin-right: -15px; }
   #sidebar .logo {
@@ -25,8 +24,7 @@ body {
     white-space: nowrap; }
   #sidebar .navigation {
     display: inline-block;
-    margin-top: 100px;
-    width: 250px; }
+    margin-top: 100px; }
     #sidebar .navigation ul {
       text-align: center;
       padding: 0; }
@@ -37,12 +35,12 @@ body {
         height: 50px;
         line-height: 50px; }
         #sidebar .navigation ul li:hover a {
-          text-decoration: underline !important; }
+          background: #e4e4e4; }
         #sidebar .navigation ul li.active {
           background: #DEDEDE; }
           #sidebar .navigation ul li.active a {
             cursor: default;
-            text-decoration: none !important; }
+            background: #e4e4e4; }
         #sidebar .navigation ul li a {
           display: block;
           width: 100%;
@@ -55,19 +53,24 @@ body {
             text-decoration: none; }
           #sidebar .navigation ul li a:focus {
             text-decoration: none; }
+  #sidebar .routing {
+    display: inline-block;
+    vertical-align: top; }
 
 #main {
-  float: left;
+  float: right;
   display: block;
-  width: calc(100% - 250px);
-  height: calc(100% - 70px); }
+  height: calc(100% - 70px);
+  will-change: transform;
+  position: relative;
+  z-index: 5;
+  background: #F1F1F1; }
   #main .region {
-    margin: 15px;
-    margin-right: 25px;
+    margin: 35px 0 15px 0;
     padding: 35px;
     min-width: 350px;
     height: calc(100% - 15px);
-    background: #FFF;
+    background: #F9F9F9;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); }
 
 #workspace {
@@ -77,6 +80,22 @@ body {
 
 #footer {
   background: #2D3133;
-  height: 70px; }
+  height: 70px;
+  line-height: 70px;
+  color: #F1F1F1;
+  text-align: right;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 10; }
+  #footer button {
+    display: inline-block;
+    background: #f56d6d;
+    padding: 0 15px;
+    border: 0;
+    color: #FFF;
+    vertical-align: middle; }
+    #footer button:hover {
+      background: #e66161;
+      transition: background 0.2s; }
 
 /*# sourceMappingURL=creation.wizard.style.css.map */

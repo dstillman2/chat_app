@@ -2,15 +2,11 @@ import React from 'react';
 
 import routeTo from './util/navigation.routeTo';
 
-function Routing() {
+function Routing(props) {
   return (
     <div
-      className="testing"
-      style={{
-        width: 250,
-        display: 'inline-block',
-        verticalAlign: 'top',
-      }}
+      className="routing"
+      style={{ width: props.width }}
     >
       <ul>
         <li>
