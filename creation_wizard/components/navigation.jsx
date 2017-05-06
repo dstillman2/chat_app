@@ -17,7 +17,7 @@ function Navigation(props) {
           <a href="#chat-routing" onClick={routeTo('routing')}>Routing</a>
         </li>
         <li>
-          <a href="#style" onClick={routeTo('style')}>Style</a>
+          <a href="#style" onClick={routeTo('themes')}>Themes</a>
         </li>
         <li>
           <a href="#settings" onClick={routeTo('settings')}>Settings</a>
@@ -31,7 +31,3 @@ function Navigation(props) {
 }
 
 export default connect()(Navigation);
-
-// on click
-// Add new component to sidebar-slide
-// slide inner sidebar div component for the width of the front element

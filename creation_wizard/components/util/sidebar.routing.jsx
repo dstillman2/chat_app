@@ -2,7 +2,7 @@ import React from 'react';
 
 import Navigation from '../navigation';
 import Routing from '../routing';
-import Style from '../style';
+import Themes from '../pages/themes';
 import Settings from '../settings';
 
 /**
@@ -18,11 +18,11 @@ function getElement(elemStr) {
     case 'routing':
       elem = <Routing key="routing" width={350} />;
       break;
-    case 'style':
-      elem = <Style key="style" />;
+    case 'themes':
+      elem = <Themes key="themes" width={250} />;
       break;
     case 'settings':
-      elem = <Settings key="settings" />;
+      elem = <Settings key="settings" width={250} />;
       break;
     default:
       elem = null;

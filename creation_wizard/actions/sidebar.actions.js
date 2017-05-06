@@ -14,7 +14,6 @@ function setSliderElem() {
  * Set width of sidebar
  */
 function setWidth(width) {
-  console.log('set width');
   return {
     type: 'SET_WIDTH',
     width,

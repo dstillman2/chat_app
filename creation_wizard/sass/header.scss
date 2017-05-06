@@ -1,0 +1,32 @@
+#header {
+  position: relative;
+  background: #FFF;
+  border-bottom: 1px solid #d6d6d6;
+  height: $footer-height;
+  color: #F1F1F1;
+  height: 70px;
+  line-height: 70px;
+  z-index: 10;
+
+  button {
+    display: inline-block;
+    border: 0;
+    padding: 0 25px;
+    color: #FFF;
+    background: #d24646;
+    height: 100%;
+
+    &:hover {
+      background: #d24646;
+      transition: background 0.2s;
+    }
+
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 100%;
+      vertical-align: middle
+    }
+  }
+}

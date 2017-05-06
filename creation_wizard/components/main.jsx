@@ -6,7 +6,6 @@ function MainRegion(props) {
     <div
       id="main"
       key="main"
-      style={{ width: `calc(100% - ${props.sidebarWidth}px)` }}
     >
       <div className="region">
         Region

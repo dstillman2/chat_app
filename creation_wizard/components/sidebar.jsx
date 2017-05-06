@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import getReactComponent from './util/sidebar.routing';
-import { onTransitionEndSidebar, onTransitionEndMain } from './util/sidebar.transitionend';
+import {
+  onTransitionEndSidebar,
+  onTransitionEndMain,
+} from './util/sidebar.transitionend';
 
 /**
  * Sidebar component
@@ -32,25 +35,25 @@ function Sidebar(props) {
   let applyCss = {};
 
   if (nextReactElement) {
-    const deltaMainWidth = nextReactElement.props.width - props.width;
+      const deltaMainWidth = nextReactElement.props.width - props.width;
 
-    applyCss = {
-      transform: `translateX(-${props.width}px)`,
-      transition: '0.2s ease-in',
-    };
+      applyCss = {
+        transform: `translateX(-${props.width}px)`,
+        transition: '0.2s ease-in',
+      };
 
-    props.mainElement.style.transition = '0.2s ease-in';
-    props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
+      props.mainElement.style.transition = '0.2s ease-in';
+      props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
 
-    props.mainElement.addEventListener('transitionend', onTransitionEndMain({
-      sidebarWidth: nextReactElement.props.width,
-      element: props.mainElement,
-    }));
+      props.mainElement.addEventListener('transitionend', onTransitionEndMain({
+        sidebarWidth: nextReactElement.props.width,
+        element: props.mainElement,
+      }));
 
-    props.element.addEventListener('transitionend', onTransitionEndSidebar({
-      element: props.element,
-      nextNode: props.nextNode,
-    }));
+      props.element.addEventListener('transitionend', onTransitionEndSidebar({
+        element: props.element,
+        nextNode: props.nextNode,
+      }));
   } else if (priorReactElement) {
     const sidebarSlideElement = props.element.children[0];
     const deltaMainWidth = priorReactElement.props.width - props.width;
@@ -67,8 +70,9 @@ function Sidebar(props) {
       });
     });
 
-    props.mainElement.style.transition = '0.2s ease-in';
-    props.mainElement.style.width = `calc(100% - ${props.width}px)`;
+    props.mainElement.style.transition = 'transform 0.2s ease-in';
+    props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
+    props.mainElement.style.right = `${deltaMainWidth}px`;
 
     props.mainElement.addEventListener('transitionend', onTransitionEndMain({
       sidebarWidth: priorReactElement.props.width,
@@ -89,6 +93,11 @@ function Sidebar(props) {
         style={applyCss}
       >
         {elems}
+      </div>
+      <div
+        className="backButton"
+      >
+        <button className="ds-button">{'<'} Back</button>
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ const createBorderDrag = function createBorderDrag(
   elem.style.top = top;
   elem.style.width = width;
   elem.style.height = height;
+  elem.style.zIndex = 500;
   elem.style.border = '5px solid #F1F1F1';
 
   body.appendChild(elem);
@@ -32,18 +33,24 @@ const dragAndDrop = function dragAndDrop(elem: string) {
   let positionTop = '';
 
   topbar.addEventListener('mousedown', (mouseDownEvt) => {
+    mouseDownEvt.stopPropagation();
+    mouseDownEvt.preventDefault();
+
     // Get topbar position relative to viewport
     const topBarPosition = topbar.getBoundingClientRect();
 
     // Reduce opacity
     chatWin.style.opacity = '0.6';
 
-    // Get distance to top left corner of the chatWindow relative to where the mouse
-    // clicked
+    // Get distance to top left corner of the chatWindow relative to where the
+    // mouse clicked
     const topbarDeltaX = mouseDownEvt.clientX - topBarPosition.left;
     const topbarDeltaY = mouseDownEvt.clientY - topBarPosition.top;
 
     document.onmousemove = (evt) => {
+      evt.stopPropagation();
+      evt.preventDefault();
+
       const chatWinDimensions = chatWin.getBoundingClientRect();
       const docWidth = document.body.clientWidth;
       const docHeight = document.body.clientHeight;

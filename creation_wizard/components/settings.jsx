@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Navigation() {
+function Settings() {
   return (
     <div className="navigation">
       <div className="logo">
@@ -15,8 +15,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
-
-// on click
-// Add new component to sidebar-slide
-// slide inner sidebar div component for the width of the front element
+export default Settings;

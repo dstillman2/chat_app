@@ -21,6 +21,7 @@ const onTransitionEndMain = ({ element, sidebarWidth }) => {
   function listener() {
     store.dispatch(setWidth(sidebarWidth));
 
+    element.style.left = sidebarWidth;
     element.style.transition = '';
     element.style.transform = '';
 

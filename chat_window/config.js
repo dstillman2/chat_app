@@ -13,11 +13,6 @@ const config = {
       height: 470,
       content: [
         {
-          id: 'a3ifjao2',
-          type: 'heading',
-          textNode: 'Which Mobile topic would you like help with?',
-        },
-        {
           id: 'aieojvxz',
           type: 'breadcrumbs',
           links: [
@@ -36,14 +31,32 @@ const config = {
           ],
         },
         {
+          id: 'a3ifjao2',
+          type: 'heading',
+          textNode: 'Please enter the information below:',
+        },
+        {
           id: '3nfsjkaef',
           type: 'form',
           fields: [
             {
               id: 'k3oalwkd',
               type: 'textbox',
-              label: 'Label',
-              placeholder: 'placeholder',
+              label: 'First Name',
+              placeholder: 'ex. Mary',
+              validate: true,
+            },
+          ],
+        },
+        {
+          id: '3nfsjkaem',
+          type: 'form',
+          fields: [
+            {
+              id: 'k3oalwkd',
+              type: 'textbox',
+              label: 'Last Name',
+              placeholder: 'ex. Ann',
               validate: true,
             },
           ],

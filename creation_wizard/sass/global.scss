@@ -5,3 +5,16 @@ html, body {
 body {
   overflow: hidden;
 }
+
+button.ds-btn {
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+
+  .btn-animation {
+    position: absolute;
+    background: #FFF;
+    opacity: 1;
+    border-radius: 50%;
+  }
+}

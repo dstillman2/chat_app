@@ -14,25 +14,24 @@
 
 #ds-chat-window {
   position: fixed;
+  z-index: 999;
   right: 10px;
   bottom: 10px;
-  background: #FFF;
+  background: #F2F2F2;
+  border-radius: 3px;
   color: #333;
-  box-shadow: 1px 1px 1px #999;
-  border: 1px solid #999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   opacity: 1;
   transition: opacity 0.2s;
 
-  #move-cursor-box {
-    width: 25%;
-    height: 100%;
-    line-height: 35px;
-    color: white;
-    padding: 0 15px;
-    cursor: move;
+  h3 {
+    font-size: 16px;
+    line-height: 24px;
   }
 
   .breadcrumbs {
+    margin: 15px 0;
+
     &::after {
       @extend .clear;
     }
@@ -41,8 +40,13 @@
       list-style-type: none;
       float: left;
 
+      a {
+        text-decoration: underline;
+      }
+
       &::after {
-        content: ' / ';
+        padding: 0 7px;
+        content: '/';
       }
 
       &:last-child {
@@ -54,13 +58,26 @@
   }
 
   .topbar {
-    background: #555;
-    height: 35px;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 15px;
+    border-bottom: 1px solid #c7c7c7;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    #move-cursor-box {
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      cursor: move;
+    }
   }
 
   .ds-body {
     height: calc(100% - 35px);
-    background: #FFF;
     overflow: hidden;
     overflow-y: scroll;
   }
@@ -78,6 +95,12 @@
     border-radius: 3px;
     height: 35px;
     box-shadow: none;
-    border: 1px solid;
+    border: 1px solid #c7c7c7;
+    background: transparent;
+
+    &:focus {
+      background: white;
+      transition: background 0.2s;
+    }
   }
 }

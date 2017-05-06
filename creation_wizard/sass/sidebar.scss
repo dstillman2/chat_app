@@ -28,6 +28,13 @@ $list-height: 50px;
   .navigation {
     display: inline-block;
     margin-top: 100px;
+    vertical-align: top;
+
+    h5 {
+      text-align: center;
+      font-size: 1.2em;
+      color: #000;
+    }
 
     ul {
       text-align: center;
@@ -43,6 +50,7 @@ $list-height: 50px;
         &:hover {
           a {
             background: #e4e4e4;
+            transition: background 0.2s;
           }
         }
 
@@ -73,6 +81,21 @@ $list-height: 50px;
           }
         }
       }
+    }
+  }
+
+  .backButton {
+    button {
+      position: absolute;
+      margin: 35px;
+      top: 0;
+      background: #FFF;
+      border: 0;
+      background: none;
+      z-index: 1;
+      padding: 5px 15px;
+      font-size: 0.9em;
+      text-transform: uppercase;
     }
   }
 

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import config from './config';
 import store from './store';
 
-import ChatWindow from './components/framework/window';
+import ChatBox from './components/framework/window';
 import TopBar from './components/framework/topbar';
 import Body from './components/framework/body';
 
@@ -23,20 +23,19 @@ if (configType !== 'object' || configType === null) {
  * context to the connect components. Within the ChatWindow component are
  * the components that build up the chat skin.
  */
-const chatWindow = (
+const ChatWindow = (
   <Provider store={store}>
-    <ChatWindow>
+    <ChatBox>
       <TopBar>
-        <div id="move-cursor-box">
-          Logo
-        </div>
+        <div id="move-cursor-box" />
+        <div>Chat With Us</div>
       </TopBar>
       <Body />
-    </ChatWindow>
+    </ChatBox>
   </Provider>
 );
 
-export default chatWindow;
+export default ChatWindow;
 
 export {
   store as chatWindowStore,

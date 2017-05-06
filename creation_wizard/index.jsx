@@ -5,37 +5,22 @@ import { Provider } from 'react-redux';
 import Workspace from './components/workspace';
 import Sidebar from './components/sidebar';
 import Main from './components/main';
-import Footer from './components/footer';
+import Header from './components/header';
+import FullScreen from './components/fullscreen';
+import ChatWindow from './components/chat_window';
 
 import store from './store';
 import { setSliderElem } from './actions/sidebar.actions';
 import { setMainElem } from './actions/main.actions';
-// import chatWindow, { chatWindowStore } from '../chat_window/index';
-
-import draggable from '../lib-shared/func/dragdrop';
-
-function Chat(props) {
-  const state = props.store.getState();
-
-  window.requestAnimationFrame(() => {
-    if (state.settings.draggable) {
-      draggable('ds-chat-window');
-    }
-  });
-
-  return (
-    <div>
-      {props.chat}
-    </div>
-  );
-}
 
 ReactDOM.render(
   <Provider store={store}>
     <Workspace>
-      <Footer />
+      {/*<Header />*/}
       <Sidebar />
       <Main />
+      <FullScreen />
+      <ChatWindow />
     </Workspace>
   </Provider>,
   document.getElementById('app'),

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import draggable from '../../../lib-shared/func/dragdrop';
+
 /**
  * Parent component containing all chat framework nodes
  * @returns {Element} main chat element
@@ -9,6 +11,10 @@ import { connect } from 'react-redux';
 function ChatWindow(props) {
   const currentNode = props.settings.nodeId;
   const nodeConfig = props.nodes[currentNode];
+
+  window.requestAnimationFrame(() => {
+    props.settings.draggable && draggable('ds-chat-window');
+  });
 
   return (
     <div
