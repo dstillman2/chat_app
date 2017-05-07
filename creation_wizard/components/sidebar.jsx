@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -7,6 +7,8 @@ import {
   onTransitionEndSidebar,
   onTransitionEndMain,
 } from './util/sidebar.transitionend';
+import BackButton from './widgets/sidebar.backbutton';
+import { sidebarIsTransitioning } from '../actions/sidebar.actions';
 
 /**
  * Sidebar component
@@ -21,104 +23,121 @@ import {
  * @param {object} props
  * @returns {Node} sidebar component
  */
-function Sidebar(props) {
-  const activeReactElement = getReactComponent(props.activeNode);
-  const nextReactElement = getReactComponent(props.nextNode);
-  const priorReactElement = getReactComponent(props.priorNode);
+class Sidebar extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.isTransitioning) {
+      return false;
+    }
 
-  const elems = [
-    priorReactElement,
-    activeReactElement,
-    nextReactElement,
-  ];
+    return true;
+  }
 
-  let applyCss = {};
+  componentDidUpdate() {
+    if (this.fn) {
+      this.props.dispatch(sidebarIsTransitioning());
 
-  if (nextReactElement) {
-      const deltaMainWidth = nextReactElement.props.width - props.width;
+      this.fn();
 
+      this.fn = null;
+    }
+  }
+
+  render() {
+    const props = this.props;
+    const activeReactElement = getReactComponent(props.activeNode);
+    const nextReactElement = getReactComponent(props.nextNode);
+    const priorReactElement = getReactComponent(props.priorNode);
+
+    const elems = [
+      priorReactElement,
+      activeReactElement,
+      nextReactElement,
+    ];
+
+    let applyCss = {};
+
+    if (nextReactElement) {
       applyCss = {
         transform: `translateX(-${props.width}px)`,
         transition: '0.2s ease-in',
       };
 
-      props.mainElement.style.transition = '0.2s ease-in';
-      props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
+      this.fn = () => {
+        const deltaMainWidth = nextReactElement.props.width - props.width;
 
-      props.mainElement.addEventListener('transitionend', onTransitionEndMain({
-        sidebarWidth: nextReactElement.props.width,
-        element: props.mainElement,
-      }));
+        props.mainElement.style.transition = '0.2s ease-in';
+        props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
 
-      props.element.addEventListener('transitionend', onTransitionEndSidebar({
-        element: props.element,
-        nextNode: props.nextNode,
-      }));
-  } else if (priorReactElement) {
-    const sidebarSlideElement = props.element.children[0];
-    const deltaMainWidth = priorReactElement.props.width - props.width;
+        props.mainElement.addEventListener('transitionend', onTransitionEndMain({
+          sidebarWidth: nextReactElement.props.width,
+          element: props.mainElement,
+        }));
 
-    applyCss = {
-      transform: `translateX(-${priorReactElement.props.width}px)`,
-    };
+        this.slideElement.addEventListener('transitionend', onTransitionEndSidebar({
+          element: this.slideElement,
+          nextNode: props.nextNode,
+        }));
+      };
+    } else if (priorReactElement) {
+      applyCss = {
+        transform: `translateX(-${priorReactElement.props.width}px)`,
+      };
 
-    // Two requestAnimationFrames to execute prior to the second repaint
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        sidebarSlideElement.style.transition = '0.2s ease-in';
-        sidebarSlideElement.style.transform = '';
-      });
-    });
+      this.fn = () => {
+        const deltaMainWidth = priorReactElement.props.width - props.width;
 
-    props.mainElement.style.transition = 'transform 0.2s ease-in';
-    props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
-    props.mainElement.style.right = `${deltaMainWidth}px`;
+        // Two requestAnimationFrames to execute prior to the second repaint
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            this.slideElement.style.transition = '0.2s ease-in';
+            this.slideElement.style.transform = '';
+          });
+        });
 
-    props.mainElement.addEventListener('transitionend', onTransitionEndMain({
-      sidebarWidth: priorReactElement.props.width,
-      element: props.mainElement,
-    }));
+        props.mainElement.style.transition = 'transform 0.2s ease-in';
+        props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
+        props.mainElement.style.right = `${deltaMainWidth}px`;
 
-    props.element.addEventListener('transitionend', onTransitionEndSidebar({
-      element: props.element,
-      priorNode: props.priorNode,
-      sidebarWidth: priorReactElement.props.width,
-    }));
+        props.mainElement.addEventListener('transitionend', onTransitionEndMain({
+          sidebarWidth: priorReactElement.props.width,
+          element: props.mainElement,
+        }));
+
+        this.slideElement.addEventListener('transitionend', onTransitionEndSidebar({
+          element: this.slideElement,
+          priorNode: props.priorNode,
+        }));
+      };
+    }
+
+    return (
+      <div id="sidebar" style={{ width: props.width }}>
+        <div
+          ref={(e) => { this.slideElement = e; }}
+          className="sidebar-slide"
+          style={applyCss}
+        >
+          {elems}
+        </div>
+        <BackButton />
+      </div>
+    );
   }
-
-  return (
-    <div id="sidebar" style={{ width: props.width }}>
-      <div
-        className="sidebar-slide"
-        style={applyCss}
-      >
-        {elems}
-      </div>
-      <div
-        className="backButton"
-      >
-        <button className="ds-button">{'<'} Back</button>
-      </div>
-    </div>
-  );
 }
 
 Sidebar.defaultProps = {
   nextNode: '',
   priorNode: '',
   element: null,
+  isTransitioning: false,
 };
 
 Sidebar.propTypes = {
-  activeNode: PropTypes.string.isRequired,
-  nextNode: PropTypes.string,
-  priorNode: PropTypes.string,
-  width: PropTypes.number.isRequired,
-  element: PropTypes.any,
+  dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return Object.assign({}, state.sidebar, { mainElement: state.main.element });
-};
+const mapStateToProps = state => (
+  Object.assign({}, state.sidebar, { mainElement: state.main.element })
+);
 
 export default connect(mapStateToProps)(Sidebar);
