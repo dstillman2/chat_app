@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import routeTo from '../util/navigation.routeTo';
+import { showBackButton } from '../../actions/sidebar.actions';
 
 function Themes(props) {
+  window.requestAnimationFrame(() => {
+    props.dispatch(showBackButton('navigation'));
+  });
+
   return (
     <div
       className="navigation"
@@ -14,12 +19,17 @@ function Themes(props) {
       </div>
       <h5>Themes</h5>
       <ul>
-        <li>
-          <a href="#chat-routing" onClick={routeTo('routing')}>Default</a>
+        <li className="active">
+          <a href="#default">Default</a>
         </li>
       </ul>
     </div>
   );
 }
+
+Themes.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired,
+};
 
 export default connect()(Themes);
