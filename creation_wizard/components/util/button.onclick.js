@@ -1,13 +1,19 @@
-const onTransitionEnd = (btnAnimationElement, fn, e) => () => {
-  btnAnimationElement.style.width = '';
-  btnAnimationElement.style.height = '';
-  btnAnimationElement.style.transform = '';
-  btnAnimationElement.style.transition = '';
-  btnAnimationElement.style.opacity = 1;
+const onTransitionEnd = (button, fn, e) => {
+  const btnAnimationElement = button.children[0];
 
-  btnAnimationElement.removeEventListener('transitionend', onTransitionEnd);
+  const resetStyles = () => {
+    btnAnimationElement.style.width = '';
+    btnAnimationElement.style.height = '';
+    btnAnimationElement.style.transform = '';
+    btnAnimationElement.style.transition = '';
+    btnAnimationElement.style.opacity = 1;
 
-  fn(e);
+    btnAnimationElement.removeEventListener('transitionend', resetStyles);
+
+    fn(e);
+  };
+
+  return resetStyles;
 };
 
 const onButtonClick = (e, fn) => {
@@ -20,7 +26,6 @@ const onButtonClick = (e, fn) => {
 
   btnAnimationElement.style.width = '5px';
   btnAnimationElement.style.height = '5px';
-
   btnAnimationElement.style.left = e.clientX - btnPositionRelViewport.left;
   btnAnimationElement.style.top = e.clientY - btnPositionRelViewport.top;
   btnAnimationElement.style.transform = 'scale(30)';
@@ -29,7 +34,7 @@ const onButtonClick = (e, fn) => {
 
   btnAnimationElement.addEventListener(
     'transitionend',
-    onTransitionEnd(btnAnimationElement, fn, e),
+    onTransitionEnd(button, fn, e),
   );
 };
 
