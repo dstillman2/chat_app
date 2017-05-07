@@ -4,6 +4,7 @@ const path = require('path');
 const isProduction = process.env.NODE_ENV === 'production';
 
 let plugins = [];
+
 let filename = 'bundle.js';
 
 const pluginsProd = [
@@ -18,9 +19,19 @@ const pluginsProd = [
   }),
 ];
 
+const pluginsDev = [
+  new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('development'),
+    },
+  }),
+];
+
 if (isProduction) {
   plugins = plugins.concat(pluginsProd);
   filename = 'bundle.min.js';
+} else {
+  plugins = plugins.concat(pluginsDev);
 }
 
 module.exports = {
