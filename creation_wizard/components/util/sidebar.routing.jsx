@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Navigation from '../navigation';
-import Routing from '../routing';
+import Navigation from '../pages/navigation';
+import Routing from '../pages/routing';
 import Themes from '../pages/themes';
-import Settings from '../settings';
+import Settings from '../pages/settings';
 
 /**
  * Takes a string and returns a React component

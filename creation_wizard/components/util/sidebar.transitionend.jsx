@@ -2,16 +2,25 @@ import store from '../../store';
 import { setNodes, setWidth } from '../../actions/sidebar.actions';
 
 const onTransitionEndSidebar = ({ element, nextNode, priorNode }) => {
+  const currentTime = new Date();
+
   function listener() {
-    store.dispatch(setNodes({
-      nextNode: null,
-      activeNode: nextNode || priorNode,
-    }));
-
-    element.style.transition = '';
-    element.style.transform = '';
-
+    const firedTime = new Date();
     element.removeEventListener('transitionend', listener);
+
+    if (firedTime - currentTime < 150) {
+      setTimeout(() => {
+        store.dispatch(setNodes({
+          nextNode: null,
+          activeNode: nextNode || priorNode,
+        }));
+      }, 200);
+    } else {
+      store.dispatch(setNodes({
+        nextNode: null,
+        activeNode: nextNode || priorNode,
+      }));
+    }
   }
 
   return listener;
@@ -19,13 +28,13 @@ const onTransitionEndSidebar = ({ element, nextNode, priorNode }) => {
 
 const onTransitionEndMain = ({ element, sidebarWidth }) => {
   function listener() {
-    store.dispatch(setWidth(sidebarWidth));
+    element.removeEventListener('transitionend', listener);
 
     element.style.left = sidebarWidth;
     element.style.transition = '';
     element.style.transform = '';
 
-    element.removeEventListener('transitionend', listener);
+    store.dispatch(setWidth(sidebarWidth));
   }
 
   return listener;
