@@ -1,14 +1,5 @@
-function openFullScreen() {
-  return {
-    type: 'OPEN_FULL_SCREEN',
-  };
-}
-
-function closeFullScreen() {
-  return {
-    type: 'CLOSE_FULL_SCREEN',
-  };
-}
+const openFullScreen = () => ({ type: 'OPEN_FULL_SCREEN' });
+const closeFullScreen = () => ({ type: 'CLOSE_FULL_SCREEN' });
 
 export {
   openFullScreen,

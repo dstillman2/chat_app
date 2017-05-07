@@ -1,69 +1,27 @@
-/**
- * Get sidebar slider DOM element.
- */
-function setSliderElem() {
-  const elem = document.getElementById('sidebar') || null;
+const setSliderElem = () => {
+  const element = document.getElementById('sidebar');
 
   return {
     type: 'SET_SLIDER_ELEMENT',
-    value: elem,
+    value: element,
   };
-}
-
-/**
- * Set width of sidebar
- */
-function setWidth(width) {
-  return {
-    type: 'SET_WIDTH',
-    width,
-  };
-}
-
-/**
- * Set a group of nodes: nextNode, activeNode, priorNode. Also set width.
- */
-function setNodes({ nextNode, activeNode, priorNode }) {
-  return {
+};
+const setNodes = ({ nextNode, activeNode, priorNode, sidebarWidth }) => (
+  {
     type: 'SET_NODES',
     nextNode,
     activeNode,
     priorNode,
-  };
-}
-
-/**
- * Set the prior element when there is a node transition.
- */
-function setActiveNode(elementString) {
-  return {
-    type: 'SET_ACTIVE_NODE',
-    value: elementString,
-  };
-}
-
-
-/**
- * Set the nextNode property. The sidebar will show an animation that
- * transitions to this element from the prior element.
- */
-function setNextNode(elementString) {
-  return {
-    type: 'SET_NEXT_NODE',
-    value: elementString,
-  };
-}
-
-/**
- * Set the prior element when there is a node transition.
- */
-function setPriorNode(elementString) {
-  return {
-    type: 'SET_PRIOR_NODE',
-    value: elementString,
-  };
-}
-
+    sidebarWidth,
+  }
+);
+const setWidth = value => ({ type: 'SET_WIDTH', value });
+const setActiveNode = value => ({ type: 'SET_ACTIVE_NODE', value });
+const setNextNode = value => ({ type: 'SET_NEXT_NODE', value });
+const setPriorNode = value => ({ type: 'SET_PRIOR_NODE', value });
+const showBackButton = value => ({ type: 'SHOW_BACK_BUTTON', value });
+const hideBackButton = () => ({ type: 'HIDE_BACK_BUTTON' });
+const sidebarIsTransitioning = () => ({ type: 'SIDEBAR_IS_TRANSITIONING' });
 
 export {
   setNodes,
@@ -72,4 +30,7 @@ export {
   setPriorNode,
   setActiveNode,
   setWidth,
+  showBackButton,
+  hideBackButton,
+  sidebarIsTransitioning,
 };
