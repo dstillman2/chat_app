@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import updateFormField from '../../actions/form_field';
 
-import Textbox from '../form_fields/textbox';
+import Textbox from '../../../lib-shared/form_fields/textbox';
 
 // Update the form field state when the field has changed.
 const createOnChangeFunc = (dispatch: () => void, formFieldId: number) => (
@@ -43,7 +43,7 @@ function Form(props) {
                 <Textbox
                   id={field.id}
                   key={field.label}
-                  value={getValue(props.fields, field.id)}
+                  value={getValue(props.chatWindow.fields, field.id)}
                   config={field}
                   onChange={createOnChangeFunc(
                     props.dispatch,

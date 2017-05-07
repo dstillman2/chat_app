@@ -10,6 +10,15 @@ function settings(state = {}, action) {
         nodeId: action.nodeId,
       });
 
+    case 'UPDATE_TITLE':
+      return Object.assign({}, state, {
+        title: action.value,
+      });
+
+    case 'DISABLE_DRAG_AND_DROP':
+      return Object.assign({}, state, {
+        draggable: false,
+      });
     default:
       return state;
   }

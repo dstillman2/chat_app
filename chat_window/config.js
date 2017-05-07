@@ -3,6 +3,7 @@ const config = {
   draggable: true,
   minWidth: 350,
   minHeight: 400,
+  title: 'Chat with us',
 
   nodes: {
     0: {
@@ -46,14 +47,8 @@ const config = {
               placeholder: 'ex. Mary',
               validate: true,
             },
-          ],
-        },
-        {
-          id: '3nfsjkaem',
-          type: 'form',
-          fields: [
             {
-              id: 'k3oalwkd',
+              id: 'k3oalwks',
               type: 'textbox',
               label: 'Last Name',
               placeholder: 'ex. Ann',

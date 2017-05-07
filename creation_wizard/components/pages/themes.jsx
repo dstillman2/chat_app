@@ -14,9 +14,6 @@ function Themes(props) {
       className="navigation"
       style={{ width: props.width }}
     >
-      <div className="logo">
-        <img alt="" src="./static/img/logo.png" />
-      </div>
       <h5>Themes</h5>
       <ul>
         <li className="active">

@@ -44,6 +44,11 @@ function Navigation(props) {
             Settings
           </a>
         </li>
+        <li>
+          <a href="#embed" onClick={checkIsTransitioning(routeTo('embed'))}>
+            Embed
+          </a>
+        </li>
       </ul>
     </div>
   );

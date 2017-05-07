@@ -51,6 +51,8 @@ function Sidebar(props) {
     const deltaMainWidth = nextReactElement.props.width - props.width;
     const slideElement = props.element.children[0];
 
+    // TODO: Remove. Dispatch to update react component rather than
+    // mutating state
     props.mainElement.style.transition = '0.2s ease-in';
     props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
 
@@ -92,7 +94,7 @@ function Sidebar(props) {
       element: slideElement,
       priorNode: props.priorNode,
     }));
-  };
+  }
 
   return (
     <div id="sidebar" style={{ width: props.width }}>
@@ -115,9 +117,13 @@ Sidebar.defaultProps = {
 };
 
 Sidebar.propTypes = {
+  isTransitioning: PropTypes.bool,
   width: PropTypes.number.isRequired,
-  dispatch: PropTypes.func.isRequired,
   priorNode: PropTypes.node,
+  nextNode: PropTypes.node,
+  activeNode: PropTypes.node.isRequired,
+  mainElement: PropTypes.object,
+  element: PropTypes.object,
 };
 
 const mapStateToProps = state => (

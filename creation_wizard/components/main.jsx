@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-function MainRegion(props) {
+function MainRegion() {
   return (
     <div
       id="main"

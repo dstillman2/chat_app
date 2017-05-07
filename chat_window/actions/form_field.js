@@ -13,7 +13,8 @@ type Action = {
  */
 function updateFormField(formFieldId: number, value: string): Action {
   return {
-    type: 'UPDATE_FORM_FIELD',
+    type: 'UPDATE_CHAT_FIELDS',
+    subType: 'UPDATE_FORM_FIELD',
     formFieldId,
     value,
   };

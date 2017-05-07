@@ -31,6 +31,11 @@ function TextBox(props) {
   );
 }
 
+TextBox.defaultProps = {
+  config: {},
+  value: '',
+};
+
 TextBox.propTypes = {
   config: PropTypes.shape({
     id: PropTypes.string,
@@ -41,7 +46,7 @@ TextBox.propTypes = {
     defaultValue: PropTypes.string,
     placeholder: PropTypes.string,
   }).isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 

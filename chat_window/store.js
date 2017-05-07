@@ -11,30 +11,37 @@ import config from './config';
  *   - nodes array configuration
  *   - default node ID
  */
-const store = createStore(
-  rootReducer,
-  {
-    settings: {
-      // Initial node is the root node of the node tree
-      nodeId: config.initialNode,
+const chatWindowDefaultConfig = {
+  settings: {
+    // Initial node is the root node of the node tree
+    nodeId: config.initialNode,
 
-      draggable: config.draggable,
+    draggable: config.draggable,
 
-      minWidth: config.minWidth,
+    minWidth: config.minWidth,
 
-      minHeight: config.minHeight,
-    },
+    minHeight: config.minHeight,
 
-    // READ ONLY. Do not write over the configuration file.
-    nodes: config.nodes,
+    title: config.title,
+  },
 
-    fields: {
-      k3oalwkd: {
-        value: 'Top gun',
-      },
+  nodes: config.nodes,
+
+  fields: {
+    k3oalwkd: {
+      value: '',
     },
   },
-  applyMiddleware(thunk),
-);
 
-export default store;
+  config,
+};
+
+// const store = createStore(
+//   rootReducer,
+//   chatWindowDefaultConfig,
+//   applyMiddleware(thunk),
+// );
+//
+// export default store;
+
+export { chatWindowDefaultConfig };

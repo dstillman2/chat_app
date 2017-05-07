@@ -11,7 +11,7 @@ import draggable from '../../../lib-shared/func/dragdrop';
 function ChatWindow(props) {
   const currentNode = props.settings.nodeId;
   const nodeConfig = props.nodes[currentNode];
-
+  console.log('cw', currentNode, nodeConfig, props);
   window.requestAnimationFrame(() => {
     props.settings.draggable && draggable('ds-chat-window');
   });
@@ -50,8 +50,8 @@ ChatWindow.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  settings: state.settings,
-  nodes: state.nodes,
+  settings: state.chatWindow.settings,
+  nodes: state.chatWindow.nodes,
 });
 
-export default connect(mapStateToProps)(ChatWindow);
+export default connect(state => state.chatWindow)(ChatWindow);

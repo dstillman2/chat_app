@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { showBackButton } from '../../actions/sidebar.actions';
+import { updateTitle } from '../../actions/chatwindow.settings';
+import TextBox from '../../../lib-shared/form_fields/textbox';
 
 function Settings(props) {
   window.requestAnimationFrame(() => {
@@ -17,11 +19,17 @@ function Settings(props) {
       <div className="logo">
         <img alt="" src="./static/img/logo.png" />
       </div>
-      <ul>
-        Settngs
-      </ul>
+      <h5>Settings</h5>
+      <TextBox
+        value={props.settings.title}
+        onChange={e => props.dispatch(updateTitle(e.target.value))}
+      />
     </div>
   );
+}
+
+Settings.defaultProps = {
+  settings: {}
 }
 
 Settings.propTypes = {
@@ -29,4 +37,4 @@ Settings.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(Settings);
+export default connect(state => state.chatWindow)(Settings);
