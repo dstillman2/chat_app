@@ -16,6 +16,12 @@ const store = createStore(
       nextNode: null,
 
       priorNode: null,
+
+      backButton: {
+        isVisible: false,
+
+        route: null,
+      },
     },
 
     main: {},
