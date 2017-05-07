@@ -3,11 +3,12 @@
  * - SET_NODE: changes the node configuration
  * @returns {Object} new state
  */
+
 function sidebar(state = {}, action) {
   switch (action.type) {
     case 'SET_WIDTH':
       return Object.assign({}, state, {
-        width: action.width,
+        width: action.value,
       });
 
     case 'SET_SLIDER_ELEMENT':
@@ -20,6 +21,7 @@ function sidebar(state = {}, action) {
         nextNode: action.nextNode,
         activeNode: action.activeNode,
         priorNode: action.priorNode,
+        isTransitioning: false,
       });
 
     case 'SET_NEXT_NODE':
@@ -32,10 +34,32 @@ function sidebar(state = {}, action) {
         priorNode: action.value,
       });
 
-    case 'UPDATE_WIDTHS':
+    case 'SHOW_BACK_BUTTON':
       return Object.assign({}, state, {
-        width: action.sidebarWidth,
+        backButton: {
+          isVisible: true,
+          routeTo: action.value,
+        },
       });
+
+    case 'HIDE_BACK_BUTTON':
+      return Object.assign({}, state, {
+        backButton: {
+          isVisible: false,
+          routeTo: '',
+        },
+      });
+
+    case 'SIDEBAR_IS_TRANSITIONING':
+      return Object.assign({}, state, {
+        isTransitioning: true,
+      });
+
+    case 'SIDEBAR_NOT_TRANSITIONING':
+      return Object.assign({}, state, {
+        isTransitioning: false,
+      });
+
     default:
       return state;
   }
