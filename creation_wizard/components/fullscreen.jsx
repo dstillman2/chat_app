@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { closeFullScreen } from '../actions/fullscreen.actions';
@@ -19,5 +20,15 @@ function FullScreen(props) {
     </div>
   );
 }
+
+FullScreen.defaultProps = {
+  isOpen: false,
+};
+
+FullScreen.propTypes = {
+  isOpen: PropTypes.bool,
+  dispatch: PropTypes.func.isRequired,
+  children: PropTypes.any,
+};
 
 export default connect(state => state.fullscreen)(FullScreen);
