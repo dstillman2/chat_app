@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -23,117 +23,101 @@ import { sidebarIsTransitioning } from '../actions/sidebar.actions';
  * @param {object} props
  * @returns {Node} sidebar component
  */
-class Sidebar extends Component {
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.isTransitioning) {
-      return false;
-    }
+function Sidebar(props) {
+  const activeReactElement = getReactComponent(props.activeNode);
+  const nextReactElement = getReactComponent(props.nextNode);
+  const priorReactElement = getReactComponent(props.priorNode);
 
-    return true;
+  const elems = [
+    priorReactElement,
+    activeReactElement,
+    nextReactElement,
+  ];
+
+  let applyCss = {};
+
+  if (nextReactElement) {
+    applyCss = {
+      transform: `translateX(-${props.width}px)`,
+      transition: '0.2s ease-in',
+    };
+  } else if (priorReactElement) {
+    applyCss = {
+      transform: `translateX(-${priorReactElement.props.width}px)`,
+    };
   }
 
-  componentDidUpdate() {
-    if (this.fn) {
-      this.props.dispatch(sidebarIsTransitioning());
+  if (nextReactElement && !props.isTransitioning) {
+    const deltaMainWidth = nextReactElement.props.width - props.width;
+    const slideElement = props.element.children[0];
 
-      this.fn();
+    props.mainElement.style.transition = '0.2s ease-in';
+    props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
 
-      this.fn = null;
-    }
-  }
+    window.requestAnimationFrame(() => {
+      props.dispatch(sidebarIsTransitioning());
 
-  render() {
-    const props = this.props;
-    const activeReactElement = getReactComponent(props.activeNode);
-    const nextReactElement = getReactComponent(props.nextNode);
-    const priorReactElement = getReactComponent(props.priorNode);
+      props.mainElement.addEventListener('transitionend', onTransitionEndMain({
+        sidebarWidth: nextReactElement.props.width,
+        element: props.mainElement,
+      }));
 
-    const elems = [
-      priorReactElement,
-      activeReactElement,
-      nextReactElement,
-    ];
+      slideElement.addEventListener('transitionend', onTransitionEndSidebar({
+        element: slideElement,
+        nextNode: props.nextNode,
+      }));
+    });
+  } else if (priorReactElement && !props.isTransitioning) {
+    const deltaMainWidth = priorReactElement.props.width - props.width;
+    const slideElement = props.element.children[0];
 
-    let applyCss = {};
+    // Two requestAnimationFrames to execute prior to the second repaint
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        slideElement.style.transition = '0.2s ease-in';
+        slideElement.style.transform = '';
+      });
+    });
 
-    if (nextReactElement) {
-      applyCss = {
-        transform: `translateX(-${props.width}px)`,
-        transition: '0.2s ease-in',
-      };
+    props.mainElement.style.transition = 'transform 0.2s ease-in';
+    props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
+    props.mainElement.style.right = `${deltaMainWidth}px`;
 
-      this.fn = () => {
-        const deltaMainWidth = nextReactElement.props.width - props.width;
+    props.mainElement.addEventListener('transitionend', onTransitionEndMain({
+      sidebarWidth: priorReactElement.props.width,
+      element: props.mainElement,
+    }));
 
-        props.mainElement.style.transition = '0.2s ease-in';
-        props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
+    slideElement.addEventListener('transitionend', onTransitionEndSidebar({
+      element: slideElement,
+      priorNode: props.priorNode,
+    }));
+  };
 
-        props.mainElement.addEventListener('transitionend', onTransitionEndMain({
-          sidebarWidth: nextReactElement.props.width,
-          element: props.mainElement,
-        }));
-
-        this.slideElement.addEventListener('transitionend', onTransitionEndSidebar({
-          element: this.slideElement,
-          nextNode: props.nextNode,
-        }));
-      };
-    } else if (priorReactElement) {
-      applyCss = {
-        transform: `translateX(-${priorReactElement.props.width}px)`,
-      };
-
-      this.fn = () => {
-        const deltaMainWidth = priorReactElement.props.width - props.width;
-
-        // Two requestAnimationFrames to execute prior to the second repaint
-        window.requestAnimationFrame(() => {
-          window.requestAnimationFrame(() => {
-            this.slideElement.style.transition = '0.2s ease-in';
-            this.slideElement.style.transform = '';
-          });
-        });
-
-        props.mainElement.style.transition = 'transform 0.2s ease-in';
-        props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
-        props.mainElement.style.right = `${deltaMainWidth}px`;
-
-        props.mainElement.addEventListener('transitionend', onTransitionEndMain({
-          sidebarWidth: priorReactElement.props.width,
-          element: props.mainElement,
-        }));
-
-        this.slideElement.addEventListener('transitionend', onTransitionEndSidebar({
-          element: this.slideElement,
-          priorNode: props.priorNode,
-        }));
-      };
-    }
-
-    return (
-      <div id="sidebar" style={{ width: props.width }}>
-        <div
-          ref={(e) => { this.slideElement = e; }}
-          className="sidebar-slide"
-          style={applyCss}
-        >
-          {elems}
-        </div>
-        <BackButton />
+  return (
+    <div id="sidebar" style={{ width: props.width }}>
+      <div
+        className="sidebar-slide"
+        style={applyCss}
+      >
+        {elems}
       </div>
-    );
-  }
+      <BackButton />
+    </div>
+  );
 }
 
 Sidebar.defaultProps = {
-  nextNode: '',
-  priorNode: '',
+  nextNode: null,
+  priorNode: null,
   element: null,
   isTransitioning: false,
 };
 
 Sidebar.propTypes = {
+  width: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
+  priorNode: PropTypes.node,
 };
 
 const mapStateToProps = state => (
