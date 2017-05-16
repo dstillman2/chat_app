@@ -1,8 +1,9 @@
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
-import { chatWindowDefaultConfig } from '../chat_window/store';
+import { chatWindowDefaultConfig } from '../chat/store';
 
 import rootReducer from './reducers/root_reducer';
+import setLocalStorage from './middleware/local_storage.redux';
 
 const creationWizardConfig = {
   sidebar: {
@@ -10,7 +11,7 @@ const creationWizardConfig = {
 
     element: null,
 
-    activeNode: 'settings',
+    activeNode: 'navigation',
 
     nextNode: null,
 
@@ -24,16 +25,6 @@ const creationWizardConfig = {
   },
 
   main: {},
-};
-
-const setLocalStorage = store => next => (action) => {
-  next(action);
-
-  if (window.localStorage) {
-    const chatWindowConfig = JSON.stringify(store.getState().chatWindow);
-
-    localStorage.setItem('chatWindowConfig', chatWindowConfig);
-  }
 };
 
 let chatWindowConfig = chatWindowDefaultConfig;

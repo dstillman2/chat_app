@@ -8,13 +8,21 @@ import chatFields from './chat_window/fields.chatwindow.reducer';
 function chatWindow(state = {}, action) {
   switch (action.type) {
     case 'UPDATE_CHAT_SETTINGS': {
-      const settings = Object.assign({}, state.settings, chatSettings(state.fields, action));
+      const settings = Object.assign(
+        {},
+        state.settings,
+        chatSettings(state.fields, action),
+      );
 
       return Object.assign({}, state, { settings });
     }
 
     case 'UPDATE_CHAT_FIELDS': {
-      const fields = Object.assign({}, state.fields, chatFields(state.fields, action));
+      const fields = Object.assign(
+        {},
+        state.fields,
+        chatFields(state.fields, action),
+      );
 
       return Object.assign({}, state, { fields });
     }

@@ -16,7 +16,7 @@ function getElement(elemStr) {
       elem = <Navigation key="navigation" width={250} />;
       break;
     case 'routing':
-      elem = <Routing key="routing" width={350} />;
+      elem = <Routing key="routing" width={550} />;
       break;
     case 'themes':
       elem = <Themes key="themes" width={250} />;

@@ -12,7 +12,7 @@ function Routing(props) {
   return (
     <div
       className="routing"
-      style={{ width: props.width }}
+      style={{ width: props.width, marginLeft: props.marginLeft }}
     >
       <h5>Routing</h5>
       <ul>

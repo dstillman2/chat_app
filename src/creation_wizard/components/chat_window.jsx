@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ChatBox from '../../chat_window/index';
+import ChatBox from '../../chat/index';
 
 function ChatWindow() {
   return (

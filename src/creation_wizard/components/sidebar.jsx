@@ -24,22 +24,20 @@ import { sidebarIsTransitioning } from '../actions/sidebar.actions';
  * @returns {Node} sidebar component
  */
 function Sidebar(props) {
+  let width = props.width;
+
   const activeReactElement = getReactComponent(props.activeNode);
   const nextReactElement = getReactComponent(props.nextNode);
   const priorReactElement = getReactComponent(props.priorNode);
 
-  const elems = [
-    priorReactElement,
-    activeReactElement,
-    nextReactElement,
-  ];
-
   let applyCss = {};
 
   if (nextReactElement) {
+    width = nextReactElement.props.width;
+
     applyCss = {
-      transform: `translateX(-${props.width}px)`,
-      transition: '0.2s ease-in',
+      transform: `translateX(-${activeReactElement.props.width}px)`,
+      transition: '0.2s linear',
     };
   } else if (priorReactElement) {
     applyCss = {
@@ -47,13 +45,17 @@ function Sidebar(props) {
     };
   }
 
+  const elems = [
+    priorReactElement,
+    activeReactElement,
+    nextReactElement,
+  ];
+
   if (nextReactElement && !props.isTransitioning) {
     const deltaMainWidth = nextReactElement.props.width - props.width;
     const slideElement = props.element.children[0];
 
-    // TODO: Remove. Dispatch to update react component rather than
-    // mutating state
-    props.mainElement.style.transition = '0.2s ease-in';
+    props.mainElement.style.transition = '0.2s linear';
     props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
 
     window.requestAnimationFrame(() => {
@@ -76,12 +78,12 @@ function Sidebar(props) {
     // Two requestAnimationFrames to execute prior to the second repaint
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
-        slideElement.style.transition = '0.2s ease-in';
+        slideElement.style.transition = '0.2s linear';
         slideElement.style.transform = '';
       });
     });
 
-    props.mainElement.style.transition = 'transform 0.2s ease-in';
+    props.mainElement.style.transition = 'transform 0.2s linear';
     props.mainElement.style.transform = `translateX(${deltaMainWidth}px)`;
     props.mainElement.style.right = `${deltaMainWidth}px`;
 
@@ -97,7 +99,7 @@ function Sidebar(props) {
   }
 
   return (
-    <div id="sidebar" style={{ width: props.width }}>
+    <div id="sidebar" style={{ width }}>
       <div
         className="sidebar-slide"
         style={applyCss}
@@ -113,6 +115,7 @@ Sidebar.defaultProps = {
   nextNode: null,
   priorNode: null,
   element: null,
+  mainElement: null,
   isTransitioning: false,
 };
 
@@ -122,8 +125,8 @@ Sidebar.propTypes = {
   priorNode: PropTypes.node,
   nextNode: PropTypes.node,
   activeNode: PropTypes.node.isRequired,
-  mainElement: PropTypes.object,
-  element: PropTypes.object,
+  mainElement: PropTypes.any,
+  element: PropTypes.any,
 };
 
 const mapStateToProps = state => (

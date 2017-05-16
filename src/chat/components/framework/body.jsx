@@ -22,7 +22,6 @@ function Body(props) {
             case 'breadcrumbs':
               return <Breadcrumbs key={field.id} config={field} />;
             case 'form':
-              console.log('form', field);
               return <Form key={field.id} config={field} />;
             default:
               return null;

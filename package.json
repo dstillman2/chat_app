@@ -8,8 +8,8 @@
     "build-flow": "flow",
     "build-uglify-css": "uglifycss chat_window/sass/_base.scss:chat_window/static/style.min.css",
     "build-webpack": "webpack",
-    "watch-css-chat-window": "sass --watch chat_window/sass/_base.scss:./static/css/chat.window.style.css",
-    "watch-css-creation-wizard": "sass --watch creation_wizard/sass/_base.scss:./static/css/creation.wizard.style.css",
+    "watch-css-chat-window": "sass --watch ./src/chat/sass/_base.scss:./src/static/css/chat.window.style.css",
+    "watch-css-creation-wizard": "sass --watch ./src/creation_wizard/sass/_base.scss:./src/static/css/creation.wizard.style.css",
     "watch-webpack": "webpack-dev-server"
   },
   "devDependencies": {
