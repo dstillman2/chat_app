@@ -2,8 +2,10 @@ $list-height: 50px;
 
 #sidebar {
   display: block;
+  position: relative;
   float: left;
   overflow: hidden;
+  margin-top: 50px;
   height: calc(100% - #{$footer-height});
   margin-right: -15px;
 
