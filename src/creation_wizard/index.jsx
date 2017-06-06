@@ -16,7 +16,7 @@ import { setMainElem } from './actions/main.actions';
 ReactDOM.render(
   <Provider store={store}>
     <Workspace>
-      {/*<Header />*/}
+      <Header />
       <Sidebar />
       <Main />
       <FullScreen />
