@@ -1,15 +1,14 @@
 const config = {
-  initialNode: 0,
+  initialNode: 1,
   draggable: true,
   minWidth: 350,
   minHeight: 400,
   title: 'Chat with us',
+  theme: 'test-theme',
 
   nodes: {
     0: {
       type: 'survey',
-      title: 'XYZ Survey',
-      theme: 'test-theme',
       width: 350,
       height: 470,
       content: [
@@ -22,7 +21,7 @@ const config = {
               linkTo: 2,
             },
             {
-              name: 'Existing Service',
+              name: 'Existing ',
               linkTo: 1,
             },
             {
@@ -60,10 +59,9 @@ const config = {
     },
 
     1: {
-      type: 'guide',
-      title: 'YZ Guide',
-      width: 500,
-      height: 650,
+      type: 'chat',
+      width: 400,
+      height: 470,
       content: [],
     },
   },
