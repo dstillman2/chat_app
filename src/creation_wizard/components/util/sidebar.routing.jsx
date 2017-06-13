@@ -16,13 +16,13 @@ function getElement(elemStr) {
       elem = <Navigation key="navigation" width={250} />;
       break;
     case 'routing':
-      elem = <Routing key="routing" width={550} />;
+      elem = <Routing key="routing" width={450} />;
       break;
     case 'themes':
       elem = <Themes key="themes" width={250} />;
       break;
     case 'settings':
-      elem = <Settings key="settings" width={250} />;
+      elem = <Settings key="settings" width={350} />;
       break;
     default:
       elem = null;
