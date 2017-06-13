@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+.clear {
+  clear: both;
+  content: '';
+  height: 0;
+  display: table;
+  visibility: hidden;
+}

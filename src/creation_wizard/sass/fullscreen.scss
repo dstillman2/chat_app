@@ -1,11 +1,13 @@
 .fullscreen {
-  position: fixed;
-  background: #2D3133;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  margin: 0 auto;
+  background: #FFF;
+  width: 500px;
+  height: 500px;
+  top: 40%;
+  transform: translateY(-50%);
   z-index: 999999;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 
   .close-btn {
     position: absolute;
@@ -13,8 +15,8 @@
     top: 0;
     margin: 0;
     padding: 35px;
-    color: #D4D4D4;
-    font-size: 50px;
+    color: #999;
+    font-size: 25px;
     opacity: 1;
     background: transparent;
     border: 0;
@@ -22,7 +24,7 @@
     transform-origin: top right;
 
     &:hover {
-      color: #FFF;
+      color: #DDD;
       transition: color 0.2s;
     }
   }

@@ -13,6 +13,8 @@ import config from './config';
  */
 const chatWindowDefaultConfig = {
   settings: {
+    isVisible: true,
+
     // Initial node is the root node of the node tree
     nodeId: config.initialNode,
 
@@ -23,6 +25,10 @@ const chatWindowDefaultConfig = {
     minHeight: config.minHeight,
 
     title: config.title,
+
+    left: undefined,
+
+    top: undefined,
   },
 
   nodes: config.nodes,

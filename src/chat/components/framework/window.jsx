@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ChatButton from './chat_button';
 
 import draggable from '../../../lib-shared/func/dragdrop';
+
+// TODO: clean up and remove this flag
+let draggableFlag = false;
 
 /**
  * Parent component containing all chat framework nodes
@@ -12,32 +16,58 @@ function ChatWindow(props) {
   const currentNode = props.settings.nodeId;
   const nodeConfig = props.nodes[currentNode];
 
+  let output;
+
   window.requestAnimationFrame(() => {
-    if (props.settings.draggable) {
+    if (!draggableFlag && props.settings.draggable) {
+      draggableFlag = true;
       draggable('ds-chat-window');
     }
   });
 
-  return (
-    <div
-      id="ds-chat-window"
-      style={{
-        width: nodeConfig.width,
-        height: nodeConfig.height,
-      }}
-    >
-      {
-        React.Children.map(props.children, child => (
-          React.cloneElement(
-            child,
-            {
-              nodeConfig,
-            },
+  if (props.settings.isVisible) {
+    output = (
+      <div>
+        <div
+          id="ds-chat-window"
+          style={{
+            display: props.settings.isMinimized ? 'none' : 'block',
+            width: nodeConfig.width,
+            height: nodeConfig.height,
+            top: props.settings.top,
+            left: props.settings.left,
+          }}
+        >
+          {
+            React.Children.map(props.children, child => (
+              React.cloneElement(
+                child,
+                {
+                  nodeConfig,
+                },
+              )
+            ))
+          }
+        </div>
+        {
+          props.settings.isMinimized && (
+            <ChatButton
+              type="resume"
+            />
           )
-        ))
-      }
-    </div>
-  );
+        }
+      </div>
+    );
+  } else {
+    draggableFlag = false;
+    output = (
+      <ChatButton
+        type="default"
+      />
+    );
+  }
+
+  return output;
 }
 
 ChatWindow.defaultProps = {

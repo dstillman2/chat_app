@@ -1,10 +1,14 @@
 #header {
-  background: #BD4747;
+  background: #333;
   height: $footer-height;
   color: #F1F1F1;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
   height: 70px;
   z-index: 10;
+
+  .nav-container {
+    height: 100%;
+  }
 
   button {
     position: relative;
@@ -14,13 +18,20 @@
     border: 0;
     padding: 0 25px;
     color: #FFF;
-    background: #f56f6f;
-    height: 50px;
-    line-height: 50px;
-    margin: 0 15px;
+    background: #7a6ff5;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 5px;
+    font-size: 0.9em;
+    transition: 0.2s;
+    border-radius: 2px;
+
+    &:first-child {
+      margin-left: 10px;
+    }
 
     &:hover {
-      background: #f56f6f;
+      background: #5b4fda;
       transition: background 0.2s;
     }
 

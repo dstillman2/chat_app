@@ -25,11 +25,15 @@ const creationWizardConfig = {
   },
 
   main: {},
+
+  chatWindow: {
+    isVisible: true,
+  },
 };
 
 let chatWindowConfig = chatWindowDefaultConfig;
 
-if (window.localStorage) {
+if (false && window.localStorage) {
   const item = window.localStorage.getItem('chatWindowConfig');
 
   if (item) {

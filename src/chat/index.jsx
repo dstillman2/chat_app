@@ -1,7 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-
-import store from './store';
 
 import ChatBox from './components/framework/window';
 import TopBar from './components/framework/topbar';
@@ -20,7 +17,3 @@ const ChatWindow = (
 );
 
 export default ChatWindow;
-
-export {
-  store as chatWindowStore,
-};

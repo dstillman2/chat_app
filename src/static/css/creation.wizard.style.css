@@ -20,12 +20,14 @@ button.ds-btn {
   height: 100%; }
 
 #header {
-  background: #BD4747;
+  background: #333;
   height: 70px;
   color: #F1F1F1;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   height: 70px;
   z-index: 10; }
+  #header .nav-container {
+    height: 100%; }
   #header button {
     position: relative;
     top: 50%;
@@ -34,12 +36,17 @@ button.ds-btn {
     border: 0;
     padding: 0 25px;
     color: #FFF;
-    background: #f56f6f;
-    height: 50px;
-    line-height: 50px;
-    margin: 0 15px; }
+    background: #7a6ff5;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 5px;
+    font-size: 0.9em;
+    transition: 0.2s;
+    border-radius: 2px; }
+    #header button:first-child {
+      margin-left: 10px; }
     #header button:hover {
-      background: #f56f6f;
+      background: #5b4fda;
       transition: background 0.2s; }
     #header button::after {
       content: '';
@@ -140,28 +147,30 @@ button.ds-btn {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); }
 
 .fullscreen {
-  position: fixed;
-  background: #2D3133;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 999999; }
+  position: relative;
+  margin: 0 auto;
+  background: #FFF;
+  width: 500px;
+  height: 500px;
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 999999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
   .fullscreen .close-btn {
     position: absolute;
     right: 0;
     top: 0;
     margin: 0;
     padding: 35px;
-    color: #D4D4D4;
-    font-size: 50px;
+    color: #999;
+    font-size: 25px;
     opacity: 1;
     background: transparent;
     border: 0;
     transform: scaleY(0.8);
     transform-origin: top right; }
     .fullscreen .close-btn:hover {
-      color: #FFF;
+      color: #DDD;
       transition: color 0.2s; }
 
 /*# sourceMappingURL=creation.wizard.style.css.map */

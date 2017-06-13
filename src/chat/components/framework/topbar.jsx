@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import {
+  closeChatWindow,
+  minimizeChatWindow,
+} from '../../actions/chat_window';
 
 /**
  * Parent component containing all chat framework nodes
@@ -13,9 +17,31 @@ function TopBar(props) {
       className="topbar"
     >
       {
-        props.settings.draggable && (<div id="move-cursor-box" />)
+        props.settings.draggable && (
+          <div id="move-cursor-box" />
+        )
       }
-      <div>{props.settings.title}</div>
+      <div
+        style={{
+          float: 'left',
+        }}
+      >
+        {props.settings.title}
+      </div>
+      <div className="ui-btns">
+        <button
+          className="title-btn"
+          onClick={() => props.dispatch(minimizeChatWindow())}
+        >
+          -
+        </button>
+        <button
+          className="title-btn"
+          onClick={() => props.dispatch(closeChatWindow())}
+        >
+          x
+        </button>
+      </div>
     </div>
   );
 }
@@ -26,8 +52,9 @@ TopBar.defaultProps = {
 };
 
 TopBar.propTypes = {
-  children: PropTypes.node,
-  config: PropTypes.objectOf(PropTypes.any),
+  settings: PropTypes.shape({
+    title: PropTypes.string,
+  }).isRequired,
 };
 
 export default connect(state => state.chatWindow)(TopBar);

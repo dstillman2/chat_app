@@ -7,10 +7,16 @@ import Button from './widgets/button';
 function Header() {
   return (
     <div id="header">
-      <Button
-        name="create account"
-        onClick={onClickCreateAccount}
-      />
+      <div className="nav-container">
+        <Button
+          name="new account"
+          onClick={onClickCreateAccount}
+        />
+        <Button
+          name="pop out"
+          onClick={onClickCreateAccount}
+        />
+      </div>
     </div>
   );
 }
