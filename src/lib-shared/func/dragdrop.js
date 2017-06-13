@@ -1,4 +1,6 @@
 // @flow
+import store from '../../creation_wizard/store';
+import { updateChatWindowPosition } from '../../chat/actions/chat_window';
 
 // Create and inject an element with the same width and height as the chat
 // window. This is the border they see when they are dragging the window.
@@ -39,9 +41,6 @@ const dragAndDrop = function dragAndDrop(elem: string) {
     // Get topbar position relative to viewport
     const topBarPosition = topbar.getBoundingClientRect();
 
-    // Reduce opacity
-    chatWin.style.opacity = '0.6';
-
     // Get distance to top left corner of the chatWindow relative to where the
     // mouse clicked
     const topbarDeltaX = mouseDownEvt.clientX - topBarPosition.left;
@@ -50,6 +49,8 @@ const dragAndDrop = function dragAndDrop(elem: string) {
     document.onmousemove = (evt) => {
       evt.stopPropagation();
       evt.preventDefault();
+      // Reduce opacity
+      chatWin.style.opacity = '0.6';
 
       const chatWinDimensions = chatWin.getBoundingClientRect();
       const docWidth = document.body.clientWidth;
@@ -100,9 +101,31 @@ const dragAndDrop = function dragAndDrop(elem: string) {
       borderElem = null;
     }
 
-    chatWin.style.left = positionLeft;
-    chatWin.style.top = positionTop;
+    // chatWin.style.left = positionLeft;
+    // chatWin.style.top = positionTop;
+    store.dispatch(updateChatWindowPosition({
+      top: positionTop,
+      left: positionLeft,
+    }));
+
     document.onmousemove = () => {};
+  });
+
+  // on window resize, check that the chat window remains within bounds
+  window.addEventListener('resize', () => {
+    const chatWinDimensions = chatWin.getBoundingClientRect();
+    const docWidth = document.body.clientWidth;
+    const docHeight = document.body.clientHeight;
+
+    window.chatWin = chatWin;
+
+    if (chatWinDimensions.left - docWidth < 0) {
+      chatWin.style.left = '';
+    }
+
+    if (chatWinDimensions.top - docHeight < 0) {
+      chatWin.style.top = '';
+    }
   });
 };
 
