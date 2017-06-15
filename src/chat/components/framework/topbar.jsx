@@ -30,13 +30,13 @@ function TopBar(props) {
       </div>
       <div className="ui-btns">
         <button
-          className="title-btn"
+          className="dsChat title-btn"
           onClick={() => props.dispatch(minimizeChatWindow())}
         >
           -
         </button>
         <button
-          className="title-btn"
+          className="dsChat title-btn"
           onClick={() => props.dispatch(closeChatWindow())}
         >
           x
@@ -54,7 +54,9 @@ TopBar.defaultProps = {
 TopBar.propTypes = {
   settings: PropTypes.shape({
     title: PropTypes.string,
+    draggable: PropTypes.bool,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(state => state.chatWindow)(TopBar);

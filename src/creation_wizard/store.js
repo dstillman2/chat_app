@@ -33,13 +33,13 @@ const creationWizardConfig = {
 
 let chatWindowConfig = chatWindowDefaultConfig;
 
-if (false && window.localStorage) {
-  const item = window.localStorage.getItem('chatWindowConfig');
-
-  if (item) {
-    chatWindowConfig = JSON.parse(item);
-  }
-}
+// if (window.localStorage) {
+//   const item = window.localStorage.getItem('chatWindowConfig');
+//
+//   if (item) {
+//     chatWindowConfig = JSON.parse(item);
+//   }
+// }
 
 const defaultStore = Object.assign(
   {},

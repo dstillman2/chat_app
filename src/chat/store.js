@@ -18,7 +18,9 @@ const chatWindowDefaultConfig = {
     // Initial node is the root node of the node tree
     nodeId: config.initialNode,
 
-    draggable: config.draggable,
+    isDraggable: config.isDraggable,
+
+    hasCircularTabbing: config.hasCircularTabbing,
 
     minWidth: config.minWidth,
 
@@ -42,12 +44,12 @@ const chatWindowDefaultConfig = {
   config,
 };
 
-// const store = createStore(
-//   rootReducer,
-//   chatWindowDefaultConfig,
-//   applyMiddleware(thunk),
-// );
-//
-// export default store;
+const store = createStore(
+  rootReducer,
+  chatWindowDefaultConfig,
+  applyMiddleware(thunk),
+);
+
+export default store;
 
 export { chatWindowDefaultConfig };

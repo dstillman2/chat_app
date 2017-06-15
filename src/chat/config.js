@@ -1,13 +1,14 @@
 const config = {
   initialNode: 1,
-  draggable: true,
+  isDraggable: true,
+  hasCircularTabbing: true,
   minWidth: 350,
   minHeight: 400,
   title: 'Chat with us',
   theme: 'test-theme',
 
   nodes: {
-    0: {
+    1: {
       type: 'survey',
       width: 350,
       height: 470,
@@ -55,10 +56,16 @@ const config = {
             },
           ],
         },
+        {
+          id: 'oaseofia',
+          type: 'button',
+          text: 'Chat Now',
+          linkToNode: 2,
+        },
       ],
     },
 
-    1: {
+    2: {
       type: 'chat',
       width: 400,
       height: 470,

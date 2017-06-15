@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 /**
@@ -7,10 +6,14 @@ import { connect } from 'react-redux';
  * @returns {Element} main chat element
  */
 function Chat() {
+  // Prior to the repaint, set the focus of the scroll to the bottom of the chat
+  // box. Also focus the send input field.
   window.requestAnimationFrame(() => {
     const chatBodyElement = document.querySelector('.chat-body');
 
     chatBodyElement.scrollTop = chatBodyElement.scrollHeight - chatBodyElement.clientHeight;
+
+    document.querySelector('#send-input').focus();
   });
 
   return (
@@ -34,8 +37,9 @@ function Chat() {
       </div>
       <div className="chat-footer">
         <textarea
+          id="send-input"
           placeholder="Type your message here"
-          />
+        />
         <button>Send</button>
       </div>
     </div>

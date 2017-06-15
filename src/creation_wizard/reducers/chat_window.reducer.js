@@ -11,7 +11,7 @@ function chatWindow(state = {}, action) {
       const settings = Object.assign(
         {},
         state.settings,
-        chatSettings(state.fields, action),
+        chatSettings(state, action),
       );
 
       return Object.assign({}, state, { settings });

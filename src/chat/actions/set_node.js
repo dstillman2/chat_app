@@ -1,20 +1,23 @@
-// @flow
-
-// Define action format
-type Action = {
-  type: string,
-  nodeId: number,
-};
-
 /**
  * Action creator
  * Change the node ID
  */
-function setNode(nodeId: number): Action {
+function setNode(node) {
   return {
-    type: 'SET_NODE',
-    nodeId,
+    type: 'UPDATE_CHAT_SETTINGS',
+    subType: 'SET_NODE',
+    node,
   };
 }
 
-export default setNode;
+function resetToInitialNode() {
+  return {
+    type: 'UPDATE_CHAT_SETTINGS',
+    subType: 'RESET_TO_INITIAL_NODE',
+  };
+}
+
+export {
+  setNode,
+  resetToInitialNode,
+};

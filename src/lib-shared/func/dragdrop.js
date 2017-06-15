@@ -2,6 +2,8 @@
 import store from '../../creation_wizard/store';
 import { updateChatWindowPosition } from '../../chat/actions/chat_window';
 
+let isInitiated = false;
+
 // Create and inject an element with the same width and height as the chat
 // window. This is the border they see when they are dragging the window.
 const createBorderDrag = function createBorderDrag(
@@ -26,9 +28,11 @@ const createBorderDrag = function createBorderDrag(
   return elem;
 };
 
-const dragAndDrop = function dragAndDrop(elem: string) {
+const dragAndDrop = function dragAndDrop(elem) {
   const chatWin = document.getElementById(elem);
-  const topbar = document.getElementsByClassName('topbar')[0];
+  const topbar = document.getElementById('move-cursor-box');
+
+  if (!topbar) return;
 
   let borderElem = null;
   let positionLeft = '';
@@ -46,9 +50,12 @@ const dragAndDrop = function dragAndDrop(elem: string) {
     const topbarDeltaX = mouseDownEvt.clientX - topBarPosition.left;
     const topbarDeltaY = mouseDownEvt.clientY - topBarPosition.top;
 
+    let flag = false;
+
     document.onmousemove = (evt) => {
       evt.stopPropagation();
       evt.preventDefault();
+
       // Reduce opacity
       chatWin.style.opacity = '0.6';
 
@@ -87,37 +94,41 @@ const dragAndDrop = function dragAndDrop(elem: string) {
           chatWinDimensions.height,
         );
       }
+
+      // The onmouseup listener removes the drag border, restores opacity and removes
+      // the onmousemove callback.
+      const mouseUpEvent = () => {
+        chatWin.style.opacity = 1;
+
+        if (borderElem) {
+          borderElem.parentElement.removeChild(borderElem);
+
+          borderElem = null;
+        }
+
+        store.dispatch(updateChatWindowPosition({
+          top: positionTop,
+          left: positionLeft,
+        }));
+
+        document.onmousemove = () => {};
+        document.removeEventListener('mouseup', mouseUpEvent);
+      };
+
+      if (!flag) {
+        flag = true;
+        document.addEventListener('mouseup', mouseUpEvent);
+      }
     };
   });
 
-  // The onmouseup listener removes the drag border, restores opacity and removes
-  // the onmousemove callback.
-  document.addEventListener('mouseup', () => {
-    chatWin.style.opacity = 1;
-
-    if (borderElem) {
-      borderElem.parentElement.removeChild(borderElem);
-
-      borderElem = null;
-    }
-
-    // chatWin.style.left = positionLeft;
-    // chatWin.style.top = positionTop;
-    store.dispatch(updateChatWindowPosition({
-      top: positionTop,
-      left: positionLeft,
-    }));
-
-    document.onmousemove = () => {};
-  });
+  if (isInitiated) return;
 
   // on window resize, check that the chat window remains within bounds
   window.addEventListener('resize', () => {
     const chatWinDimensions = chatWin.getBoundingClientRect();
     const docWidth = document.body.clientWidth;
     const docHeight = document.body.clientHeight;
-
-    window.chatWin = chatWin;
 
     if (chatWinDimensions.left - docWidth < 0) {
       chatWin.style.left = '';
@@ -126,6 +137,8 @@ const dragAndDrop = function dragAndDrop(elem: string) {
     if (chatWinDimensions.top - docHeight < 0) {
       chatWin.style.top = '';
     }
+
+    isInitiated = true;
   });
 };
 

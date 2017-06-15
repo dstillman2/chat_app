@@ -10,10 +10,14 @@ import { openChatWindow } from '../../actions/chat_window';
 function ChatButton(props) {
   let output;
 
+  window.requestAnimationFrame(() => {
+    document.querySelector('.btn-open').focus();
+  });
+
   if (props.type === 'resume') {
     output = (
       <button
-        className="resume-chat"
+        className="btn-open resume-chat"
         onClick={() => { props.dispatch(openChatWindow()); }}
         style={{
           position: 'fixed',
@@ -27,7 +31,7 @@ function ChatButton(props) {
   } else {
     output = (
       <button
-        className="chat-button"
+        className="btn-open chat-button"
         onClick={() => { props.dispatch(openChatWindow()); }}
         style={{
           position: 'fixed',

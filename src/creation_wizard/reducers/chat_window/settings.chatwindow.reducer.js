@@ -14,6 +14,9 @@ function chatSettings(state, action) {
     case 'CLOSE_CHAT_WINDOW':
       return Object.assign({}, state, {
         isVisible: false,
+        nodeId: state.config.initialNode,
+        top: undefined,
+        left: undefined,
       });
 
     case 'OPEN_CHAT_WINDOW':
@@ -25,6 +28,11 @@ function chatSettings(state, action) {
     case 'MINIMIZE_CHAT_WINDOW':
       return Object.assign({}, state, {
         isMinimized: true,
+      });
+
+    case 'SET_NODE':
+      return Object.assign({}, state, {
+        nodeId: action.node,
       });
 
     default:
