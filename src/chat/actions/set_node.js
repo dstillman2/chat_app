@@ -4,16 +4,16 @@
  */
 function setNode(node) {
   return {
-    type: 'UPDATE_CHAT_SETTINGS',
-    subType: 'SET_NODE',
+    category: 'UPDATE_CHAT_SETTINGS',
+    type: 'SET_NODE',
     node,
   };
 }
 
 function resetToInitialNode() {
   return {
-    type: 'UPDATE_CHAT_SETTINGS',
-    subType: 'RESET_TO_INITIAL_NODE',
+    category: 'UPDATE_CHAT_SETTINGS',
+    type: 'RESET_TO_INITIAL_NODE',
   };
 }
 

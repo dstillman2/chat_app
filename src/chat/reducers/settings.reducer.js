@@ -1,5 +1,10 @@
-function chatSettings(state, action) {
-  switch (action.subType) {
+/**
+ * Settings reducer.
+ * - SET_NODE: changes the node configuration
+ * @returns {Object} new state
+ */
+function settings(state = {}, action) {
+  switch (action.type) {
     case 'UPDATE_TITLE':
       return Object.assign({}, state, {
         title: action.value,
@@ -14,7 +19,7 @@ function chatSettings(state, action) {
     case 'CLOSE_CHAT_WINDOW':
       return Object.assign({}, state, {
         isVisible: false,
-        nodeId: state.config.initialNode,
+        nodeId: state.initialNode,
         top: undefined,
         left: undefined,
       });
@@ -40,4 +45,4 @@ function chatSettings(state, action) {
   }
 }
 
-export default chatSettings;
+export default settings;

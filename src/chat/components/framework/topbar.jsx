@@ -59,4 +59,14 @@ TopBar.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(state => state.chatWindow)(TopBar);
+const mapStateToProps = (state) => {
+  // Store is structured differently when the chat window is visible in the
+  // creation wizard. Return the appropriate parameters.
+  if (state.chatWindow && state.chatWindow.settings) {
+    return state.chatWindow;
+  }
+
+  return state;
+};
+
+export default connect(mapStateToProps)(TopBar);

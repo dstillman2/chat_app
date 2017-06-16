@@ -2,7 +2,15 @@ html, body {
   height: 100%; }
 
 body {
-  overflow: hidden; }
+  overflow: hidden;
+  margin: 0;
+  font-size: 0.9em; }
+
+a {
+  text-decoration: none; }
+
+button {
+  cursor: pointer; }
 
 button.ds-btn {
   position: relative;

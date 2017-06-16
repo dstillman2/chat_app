@@ -1,5 +1,3 @@
-@import 'common/constants';
-@import 'common/global';
 @import './chat_button';
 
 #ds-chat-window {
@@ -46,7 +44,11 @@
     margin: 15px 0;
 
     &::after {
-      @extend .clear;
+      clear: both;
+      content: '';
+      height: 0;
+      display: table;
+      visibility: hidden;
     }
 
     li {

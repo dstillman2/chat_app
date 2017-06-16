@@ -1,5 +1,4 @@
 // @flow
-import store from '../../creation_wizard/store';
 import { updateChatWindowPosition } from '../../chat/actions/chat_window';
 
 let isInitiated = false;
@@ -28,8 +27,8 @@ const createBorderDrag = function createBorderDrag(
   return elem;
 };
 
-const dragAndDrop = function dragAndDrop(elem) {
-  const chatWin = document.getElementById(elem);
+const dragAndDrop = function dragAndDrop(dispatch) {
+  const chatWin = document.getElementById('ds-chat-window');
   const topbar = document.getElementById('move-cursor-box');
 
   if (!topbar) return;
@@ -106,7 +105,7 @@ const dragAndDrop = function dragAndDrop(elem) {
           borderElem = null;
         }
 
-        store.dispatch(updateChatWindowPosition({
+        dispatch(updateChatWindowPosition({
           top: positionTop,
           left: positionLeft,
         }));

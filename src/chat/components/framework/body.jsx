@@ -16,14 +16,6 @@ function Body(props) {
   let output;
 
   if (props.nodeConfig.type === 'survey') {
-    window.requestAnimationFrame(() => {
-      const chatWinElem = document.getElementById('ds-chat-window');
-
-      // if (chatWinElem) {
-      //   chatWinElem.querySelector('.ds-body').querySelector('input, button').focus();
-      // }
-    });
-
     output = (
       props.nodeConfig.content.map((field) => {
         switch (field.type) {

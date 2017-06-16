@@ -31,6 +31,12 @@ const getValue = (fieldsList: any, fieldId: number) => {
  * @returns {Element} main chat element
  */
 function Form(props) {
+  const fields = props.chatWindow && props.chatWindow.fields ? (
+    props.chatWindow.fields
+  ) : (
+    props.fields
+  );
+
   return (
     <div
       className="form"
@@ -43,7 +49,7 @@ function Form(props) {
                 <Textbox
                   id={field.id}
                   key={field.label}
-                  value={getValue(props.chatWindow.fields, field.id)}
+                  value={getValue(fields, field.id)}
                   config={field}
                   onChange={createOnChangeFunc(
                     props.dispatch,

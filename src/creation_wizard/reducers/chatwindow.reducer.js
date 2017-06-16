@@ -1,17 +1,18 @@
-import chatSettings from './chat_window/settings.chatwindow.reducer';
-import chatFields from './chat_window/fields.chatwindow.reducer';
+import chatSettings from '../../chat/reducers/settings.reducer';
+import chatFields from '../../chat/reducers/fields.reducer';
+import { chatWindowDefaultConfig } from '../../chat/store';
 
 /**
  * Full screen reducer.
  * @returns {Object} new state
  */
 function chatWindow(state = {}, action) {
-  switch (action.type) {
+  switch (action.category) {
     case 'UPDATE_CHAT_SETTINGS': {
       const settings = Object.assign(
         {},
         state.settings,
-        chatSettings(state, action),
+        chatSettings(state.settings, action, state),
       );
 
       return Object.assign({}, state, { settings });
@@ -26,6 +27,13 @@ function chatWindow(state = {}, action) {
 
       return Object.assign({}, state, { fields });
     }
+
+    case 'ADD_CONFIG':
+      return Object.assign(
+        {},
+        state,
+        chatWindowDefaultConfig(action.config),
+      );
 
     case 'UPDATE_NODES': {
       return state;

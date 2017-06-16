@@ -4,6 +4,16 @@ html, body {
 
 body {
   overflow: hidden;
+  margin: 0;
+  font-size: 0.9em;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
 }
 
 button.ds-btn {

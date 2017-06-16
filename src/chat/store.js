@@ -2,51 +2,43 @@ import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 
 import rootReducer from './reducers';
-import config from './config';
 
 /**
  * Initialize the redux store.
- *
- * Defaults:
- *   - nodes array configuration
- *   - default node ID
  */
-const chatWindowDefaultConfig = {
-  settings: {
-    isVisible: true,
+const chatWindowDefaultConfig = config => (
+  {
+    settings: {
+      isVisible: false,
 
-    // Initial node is the root node of the node tree
-    nodeId: config.initialNode,
+      initialNode: config.initialNode,
 
-    isDraggable: config.isDraggable,
+      nodeId: config.initialNode,
 
-    hasCircularTabbing: config.hasCircularTabbing,
+      isDraggable: config.isDraggable,
 
-    minWidth: config.minWidth,
+      hasCircularTabbing: config.hasCircularTabbing,
 
-    minHeight: config.minHeight,
+      minWidth: config.minWidth,
 
-    title: config.title,
+      minHeight: config.minHeight,
 
-    left: undefined,
+      title: config.title,
 
-    top: undefined,
-  },
+      left: undefined,
 
-  nodes: config.nodes,
-
-  fields: {
-    k3oalwkd: {
-      value: '',
+      top: undefined,
     },
-  },
 
-  config,
-};
+    nodes: config.nodes,
 
-const store = createStore(
+    fields: {},
+  }
+);
+
+const store = config => createStore(
   rootReducer,
-  chatWindowDefaultConfig,
+  chatWindowDefaultConfig(config),
   applyMiddleware(thunk),
 );
 

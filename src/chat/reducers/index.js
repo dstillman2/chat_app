@@ -1,15 +1,11 @@
 import { combineReducers } from 'redux';
 
-import settings from './settings';
+import settings from './settings.reducer';
 import nodes from './nodes';
-import fields from './fields';
-import chatWindow from './chat_window';
-import config from './config';
+import fields from './fields.reducer';
 
 export default combineReducers({
   settings,
   nodes,
   fields,
-  chatWindow,
-  config,
 });

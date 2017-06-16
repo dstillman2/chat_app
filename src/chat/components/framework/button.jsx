@@ -12,7 +12,7 @@ function Button(props) {
       className="dsChat button-routing"
       onClick={() => { props.dispatch(setNode(props.linkToNode)); }}
     >
-      {props.text}
+      {props.text} BLah
     </button>
   );
 }

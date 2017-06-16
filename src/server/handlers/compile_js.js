@@ -14,7 +14,7 @@ const compileJs = {
       }
 
 
-      res.send('Hello World');
+      res.send(results[0].config);
     });
   },
 };

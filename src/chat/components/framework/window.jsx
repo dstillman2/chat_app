@@ -17,8 +17,7 @@ let isCircularTabbingEnabled = false;
  * @returns {Element} main chat element
  */
 function ChatWindow(props) {
-  console.log(props);
-  const currentNode = props.settings.nodeId;
+  const currentNode = props.settings.nodeId || props.initialNode;
   const nodeConfig = props.nodes[currentNode];
 
   let output;
@@ -29,7 +28,7 @@ function ChatWindow(props) {
       if (props.settings.isDraggable && !isDraggableEnabled) {
         isDraggableEnabled = true;
 
-        draggable('ds-chat-window');
+        draggable(props.dispatch);
       }
 
       // Enable circular tabbing
@@ -77,7 +76,7 @@ function ChatWindow(props) {
     isDraggableEnabled = false;
     isCircularTabbingEnabled = false;
 
-    if (props.settings.hasCircularTabbing) {
+    if (props.settings.hasCircularTabbing && isCircularTabbingEnabled) {
       disableCircularTabbing();
     }
 
@@ -108,11 +107,8 @@ const mapStateToProps = (state) => {
   if (state.chatWindow && state.chatWindow.settings) {
     return state.chatWindow;
   }
-  console.log(state);
-  return {
-    settings: state.settings,
-    nodes: state.nodes,
-  };
+
+  return state;
 };
 
 export default connect(mapStateToProps)(ChatWindow);

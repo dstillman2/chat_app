@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { showBackButton } from '../../actions/sidebar.actions';
-import { updateTitle } from '../../actions/chatwindow.settings';
 import TextBox from '../../../lib-shared/form_fields/textbox';
 
 function Settings(props) {
@@ -22,7 +21,6 @@ function Settings(props) {
       <h5>Settings</h5>
       <TextBox
         value={props.settings.title}
-        onChange={e => props.dispatch(updateTitle(e.target.value))}
       />
     </div>
   );
