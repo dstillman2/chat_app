@@ -9,10 +9,6 @@ function Header() {
     <div id="header">
       <div className="nav-container">
         <Button
-          name="new account"
-          onClick={onClickCreateAccount}
-        />
-        <Button
           name="pop out"
           onClick={onClickCreateAccount}
         />

@@ -3,18 +3,16 @@
   left: 250px;
   right: 0;
   bottom: 0;
-  top: 85px;
+  top: 70px;
   display: block;
   will-change: transform, left;
   z-index: 5;
-  background: #F1F1F1;
+  background: #FFF;
 
   .region {
-    margin: 35px 0 15px 0;
     padding: 35px;
     min-width: 350px;
     height: calc(100% - 75px);
-    background: #FFF;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-left: 1px solid #CCC;
   }
 }

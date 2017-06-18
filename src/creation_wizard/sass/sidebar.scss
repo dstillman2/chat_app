@@ -5,9 +5,9 @@ $list-height: 50px;
   position: relative;
   float: left;
   overflow: hidden;
-  margin-top: 50px;
   height: calc(100% - #{$footer-height});
   margin-right: -15px;
+  background: #F1F1F1;
 
   h5 {
     text-align: center;

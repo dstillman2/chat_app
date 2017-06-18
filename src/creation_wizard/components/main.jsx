@@ -7,9 +7,7 @@ function MainRegion() {
       id="main"
       key="main"
     >
-      <div className="region">
-        Region
-      </div>
+      <div className="region" />
     </div>
   );
 }
