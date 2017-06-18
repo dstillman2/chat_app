@@ -7,7 +7,7 @@
     "build": "yarn run build-flow",
     "build-flow": "flow",
     "build-uglify-css": "uglifycss chat_window/sass/_base.scss:chat_window/static/style.min.css",
-    "build-webpack": "webpack",
+    "build-webpack": "NODE_ENV=production webpack",
     "watch-css-chat-window": "sass --watch ./src/chat/sass/_base.scss:./src/static/css/chat.window.style.css",
     "watch-css-creation-wizard": "sass --watch ./src/creation_wizard/sass/_base.scss:./src/static/css/creation.wizard.style.css",
     "watch-webpack": "webpack-dev-server",
@@ -48,6 +48,7 @@
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "request": "^2.81.0",
     "rxjs": "^5.3.0",
     "uuid": "^3.0.1",
     "webpack": "^2.4.1"
