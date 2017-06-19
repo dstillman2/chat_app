@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { showBackButton } from '../../actions/sidebar.actions';
-import TextBox from '../../../lib-shared/form_fields/textbox';
+import TextBox from '../../../lib/form_fields/textbox';
 
 function Settings(props) {
   window.requestAnimationFrame(() => {

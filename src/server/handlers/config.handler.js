@@ -1,6 +1,6 @@
 import mysql from '../config/mysql.config';
 
-const compileJs = {
+const configurationHandler = {
   get(req, res) {
     const query = (
       `SELECT * FROM config WHERE uuid = "${req.params.identifier}"`
@@ -13,10 +13,11 @@ const compileJs = {
         return;
       }
 
+      const configFile = results[0].config;
 
-      res.send(results[0].config);
+      res.send(configFile);
     });
   },
 };
 
-export default compileJs;
+export default configurationHandler;

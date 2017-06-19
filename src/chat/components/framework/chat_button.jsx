@@ -11,7 +11,11 @@ function ChatButton(props) {
   let output;
 
   window.requestAnimationFrame(() => {
-    document.querySelector('.btn-open').focus();
+    const btnOpenElement = document.querySelector('.btn-open');
+
+    if (btnOpenElement) {
+      btnOpenElement.focus();
+    }
   });
 
   if (props.type === 'resume') {

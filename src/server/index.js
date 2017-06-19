@@ -10,8 +10,9 @@ const app = express();
 app.use(middleware.cors());
 
 const routes = [
-  ['/embed', handlers.configuration],
-  ['/:identifier.js', handlers.compileJs],
+  ['/chatbot-v.1.0-:identifier.js', handlers.embedHandler],
+  ['/config-:identifier.js', handlers.configHandler],
+  ['/theme/:themeName.css', handlers.themeHandler],
 ];
 
 registerRoutes(app, routes);

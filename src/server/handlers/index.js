@@ -1,7 +1,9 @@
-import compileJs from './compile_js';
-import configuration from './configuration';
+import configHandler from './config.handler';
+import embedHandler from './embed.handler';
+import themeHandler from './theme.handler';
 
 export {
-  compileJs,
-  configuration,
+  configHandler,
+  embedHandler,
+  themeHandler,
 };

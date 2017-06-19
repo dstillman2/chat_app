@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ChatButton from './chat_button';
 
-import draggable from '../../../lib-shared/func/dragdrop';
+import draggable from '../../../lib/func/dragdrop';
 import {
   enableCircularTabbing,
   disableCircularTabbing,
-} from '../../../lib-shared/func/circular_tabbing';
+} from '../../../lib/func/circular_tabbing';
 
 let isDraggableEnabled = false;
 let isCircularTabbingEnabled = false;

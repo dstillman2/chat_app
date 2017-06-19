@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 import ChatBox from './components/framework/window';
 import TopBar from './components/framework/topbar';
 import Body from './components/framework/body';
-import sendAjaxRequest from '../lib-shared/func/xml_http_request';
+import sendAjaxRequest from '../lib/func/xml_http_request';
+import injectStyle from '../lib/func/inject_style';
 
 import store from './store';
 
@@ -17,21 +18,27 @@ function renderToDOM(config) {
         <Body />
       </ChatBox>
     </Provider>,
-    document.getElementById('app'),
+    document.getElementById('dsChatNode'),
   );
 }
 
 function fetchConfigFile() {
-  const path = 'http://localhost:3000/d0c5781a-dc4d-456c-a75c-e526cff95935.js';
+  const path = window.dsChatPathLocation;
+
+  if (!path) {
+    throw new Error('Fatal: config path not provided');
+  }
 
   sendAjaxRequest({
     method: 'GET',
     path,
     onSuccess(data) {
+      injectStyle(`http://localhost:3000/theme/${data.theme}.css`);
+
       renderToDOM(data);
     },
     onFailure() {
-      console.error('Fatal: cannot fetch config file');
+      throw new Error('Fatal: cannot fetch config file');
     },
   });
 }

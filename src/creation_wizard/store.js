@@ -50,6 +50,7 @@ const store = createStore(
 
 window.store = store;
 
+// Fetch the config file and add it to the store
 store.dispatch(fetchConfigFile());
 
 export default store;

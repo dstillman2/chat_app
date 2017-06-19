@@ -14,13 +14,14 @@ const createBorderDrag = function createBorderDrag(
   const body = document.querySelector('body');
   const elem = document.createElement('div');
 
+  elem.id = 'drag-border';
   elem.style.position = 'fixed';
   elem.style.left = left;
   elem.style.top = top;
-  elem.style.width = width;
-  elem.style.height = height;
-  elem.style.zIndex = 500;
-  elem.style.border = '5px solid #F1F1F1';
+  elem.style.width = `${width}px`;
+  elem.style.height = `${height}px`;
+  elem.style.zIndex = 1000000;
+  elem.style.border = '6px solid #333';
 
   body.appendChild(elem);
 

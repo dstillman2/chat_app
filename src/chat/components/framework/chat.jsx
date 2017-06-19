@@ -11,7 +11,9 @@ function Chat() {
   window.requestAnimationFrame(() => {
     const chatBodyElement = document.querySelector('.chat-body');
 
-    chatBodyElement.scrollTop = chatBodyElement.scrollHeight - chatBodyElement.clientHeight;
+    chatBodyElement.scrollTop = (
+      chatBodyElement.scrollHeight - chatBodyElement.clientHeight
+    );
 
     document.querySelector('#send-input').focus();
   });

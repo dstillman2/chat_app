@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import updateFormField from '../../actions/form_field';
 
-import Textbox from '../../../lib-shared/form_fields/textbox';
+import Textbox from '../../../lib/form_fields/textbox';
 
 // Update the form field state when the field has changed.
 const createOnChangeFunc = (dispatch: () => void, formFieldId: number) => (

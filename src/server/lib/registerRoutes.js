@@ -1,9 +1,7 @@
-function registerRoutes(application, routes) {
+function registerRoutes(app, routes) {
   routes.forEach((route) => {
-    const middleware = routes[2] || [];
-
     Object.keys(route[1]).forEach((g) => {
-      application[g](route[0], middleware, route[1][g]);
+      app[g](route[0], route[1][g]);
     });
   });
 }
