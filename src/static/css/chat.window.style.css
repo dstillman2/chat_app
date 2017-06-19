@@ -134,5 +134,10 @@
     height: 50px;
     z-index: 99;
     cursor: move; }
+  #ds-chat-window ul.messages {
+    margin: 0;
+    padding: 0; }
+    #ds-chat-window ul.messages li {
+      list-style-type: none; }
 
 /*# sourceMappingURL=chat.window.style.css.map */

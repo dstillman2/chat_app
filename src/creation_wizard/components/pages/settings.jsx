@@ -15,13 +15,20 @@ function Settings(props) {
       className="navigation"
       style={{ width: props.width }}
     >
-      <div className="logo">
-        <img alt="" src="./static/img/logo.png" />
-      </div>
+      <div className="logo" />
       <h5>Settings</h5>
       <TextBox
-        value={props.settings.title}
+        config={{
+          label: 'Title',
+          value: props.settings.title,
+        }}
       />
+    <TextBox
+      config={{
+        label: 'Auto Opener',
+        placeholder: 'Auto Opener',
+      }}
+    />
     </div>
   );
 }

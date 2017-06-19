@@ -123,4 +123,13 @@
     z-index: 99;
     cursor: move;
   }
+
+  ul.messages {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style-type: none;
+    }
+  }
 }

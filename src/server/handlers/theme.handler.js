@@ -3,7 +3,9 @@ import path from 'path';
 
 let defaultTheme;
 
-const styleSheetPath = path.join(__dirname, '../../static/css/chat.window.style.css');
+const styleSheetPath = (
+  path.join(__dirname, '../../static/css/chat.window.style.css')
+);
 
 fs.readFile(styleSheetPath, 'utf8', (error, data) => {
   defaultTheme = data;

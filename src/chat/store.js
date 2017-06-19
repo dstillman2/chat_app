@@ -33,6 +33,10 @@ const chatWindowDefaultConfig = config => (
     nodes: config.nodes,
 
     fields: {},
+
+    messages: [
+      config.autoOpener,
+    ],
   }
 );
 

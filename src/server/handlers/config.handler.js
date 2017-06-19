@@ -1,6 +1,7 @@
 import mysql from '../config/mysql.config';
 
 const configurationHandler = {
+  // Fetch configuration file
   get(req, res) {
     const query = (
       `SELECT * FROM config WHERE uuid = "${req.params.identifier}"`
@@ -17,6 +18,11 @@ const configurationHandler = {
 
       res.send(configFile);
     });
+  },
+
+  // Update configuration file
+  put(req, res) {
+    res.status(200).end();
   },
 };
 

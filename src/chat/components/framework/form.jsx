@@ -1,41 +1,19 @@
-// @flow
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import updateFormField from '../../actions/form_field';
+import {
+  setOnChangeFormField,
+  getValue,
+} from '../../func/form_field_func';
 
 import Textbox from '../../../lib/form_fields/textbox';
-
-// Update the form field state when the field has changed.
-const createOnChangeFunc = (dispatch: () => void, formFieldId: number) => (
-  (e: any) => {
-    e.preventDefault();
-
-    const value: string = e.target.value;
-
-    dispatch(updateFormField(formFieldId, value));
-  }
-);
-
-// If existing value exists, return that value, else return empty string.
-const getValue = (fieldsList: any, fieldId: number) => {
-  const fieldParam = fieldsList[fieldId];
-
-  return fieldParam ? fieldParam.value : '';
-};
 
 /**
  * Parent component containing all chat framework nodes
  * @returns {Element} main chat element
  */
 function Form(props) {
-  const fields = props.chatWindow && props.chatWindow.fields ? (
-    props.chatWindow.fields
-  ) : (
-    props.fields
-  );
+  const fields = props.fields;
 
   return (
     <div
@@ -51,7 +29,7 @@ function Form(props) {
                   key={field.label}
                   value={getValue(fields, field.id)}
                   config={field}
-                  onChange={createOnChangeFunc(
+                  onChange={setOnChangeFormField(
                     props.dispatch,
                     field.id,
                   )}
@@ -67,11 +45,18 @@ function Form(props) {
 }
 
 Form.propTypes = {
+  fields: PropTypes.objectOf(PropTypes.any).isRequired,
   config: PropTypes.shape({
     fields: PropTypes.array,
   }).isRequired,
 };
 
-export default connect(state => state)(Form);
+const mapStateToProps = (state) => {
+  if (state.chatWindow && state.chatWindow.fields) {
+    return { fields: state.chatWindow.fields };
+  }
 
-export { createOnChangeFunc, getValue };
+  return { fields: state.fields };
+};
+
+export default connect(mapStateToProps)(Form);

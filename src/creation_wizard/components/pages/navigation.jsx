@@ -26,7 +26,7 @@ function Navigation(props) {
       style={{ width: props.width }}
     >
       <div className="logo">
-        <img alt="" src="./static/img/logo.png" />
+        <img alt="" src="../static/img/logo.png" />
       </div>
       <ul>
         <li>

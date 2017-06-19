@@ -11,6 +11,8 @@ import injectStyle from '../lib/func/inject_style';
 import store from './store';
 
 function renderToDOM(config) {
+  window.store = store(config);
+
   ReactDOM.render(
     <Provider store={store(config)}>
       <ChatBox>

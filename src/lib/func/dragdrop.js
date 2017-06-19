@@ -51,6 +51,7 @@ const dragAndDrop = function dragAndDrop(dispatch) {
     const topbarDeltaY = mouseDownEvt.clientY - topBarPosition.top;
 
     let flag = false;
+    let borderDragFlag = false;
 
     document.onmousemove = (evt) => {
       evt.stopPropagation();
@@ -84,8 +85,17 @@ const dragAndDrop = function dragAndDrop(dispatch) {
       positionTop = `${newchatWindowTopPosition}px`;
 
       if (borderElem) {
-        borderElem.style.left = positionLeft;
-        borderElem.style.top = positionTop;
+        // throttle the number of times paint is required to move the drag border
+        // to a different location in the viewport.
+        if (!borderDragFlag) {
+          borderDragFlag = true;
+          window.requestAnimationFrame(() => {
+            borderElem.style.left = positionLeft;
+            borderElem.style.top = positionTop;
+
+            borderDragFlag = false;
+          });
+        }
       } else {
         borderElem = createBorderDrag(
           positionLeft,
