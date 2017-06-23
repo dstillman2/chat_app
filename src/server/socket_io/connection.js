@@ -1,13 +1,28 @@
 import io from '../config/socket.io.config';
 
-function initializeSocketIOConnection() {
-  io.on('connection', (socket) => {
-    console.log('a user connected');
-
-    socket.on('disconnect', () => {
-      console.log('a user has disconnected');
+io.on('connection', (socket) => {
+  socket.on('join', (data) => {
+    io.sockets.in(data.roomId).emit('status', {
+      type: 'join',
+      user: data.user,
     });
-  });
-}
 
-export default initializeSocketIOConnection;
+    socket.join(data.roomId);
+
+    // add new user to redis list
+  });
+
+  socket.on('leave', (data) => {
+    io.sockets.in(data.roomId).emit('status', {
+      type: 'leave',
+      user: data.user,
+    });
+
+    socket.leave(data.roomId);
+  });
+
+  socket.on('message', (data) => {
+    // broadcast message to everyone subscribed to room
+    io.sockets.in(data.roomId).emit('message', data);
+  });
+});

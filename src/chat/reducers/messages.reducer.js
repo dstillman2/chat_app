@@ -4,9 +4,13 @@
  */
 function messages(state = [], action) {
   switch (action.type) {
-    case 'UPDATE_MESSAGE':
-      console.log('messages', action.type);
-      return state.slice(0).push(action.value);
+    case 'UPDATE_MESSAGE': {
+      const newState = state.slice(0);
+
+      newState.push(action.value);
+
+      return newState;
+    }
 
     default:
       return state;

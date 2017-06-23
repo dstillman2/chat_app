@@ -6,6 +6,7 @@ import {
   closeChatWindow,
   minimizeChatWindow,
 } from '../../actions/chat_window';
+import socketIO from '../../func/chat.socket';
 
 /**
  * Parent component containing all chat framework nodes
@@ -37,7 +38,10 @@ function TopBar(props) {
         </button>
         <button
           className="dsChat title-btn"
-          onClick={() => props.dispatch(closeChatWindow())}
+          onClick={() => {
+            socketIO.unsubscribe();
+            props.dispatch(closeChatWindow());
+          }}
         >
           x
         </button>

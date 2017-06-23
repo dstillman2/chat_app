@@ -15,6 +15,7 @@ const themeHandler = {
   get(req, res) {
     if (req.params.themeName === 'test-theme') {
       res.set('Content-Type', 'text/css');
+
       res.send(defaultTheme);
 
       return;

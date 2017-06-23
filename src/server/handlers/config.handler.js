@@ -4,7 +4,8 @@ const configurationHandler = {
   // Fetch configuration file
   get(req, res) {
     const query = (
-      `SELECT * FROM config WHERE uuid = "${req.params.identifier}"`
+      `SELECT * FROM configurations
+       WHERE unique_id = "${req.params.identifier}" AND is_deleted=0`
     );
 
     mysql.query(query, (err, results) => {
@@ -14,7 +15,7 @@ const configurationHandler = {
         return;
       }
 
-      const configFile = results[0].config;
+      const configFile = results[0].data;
 
       res.send(configFile);
     });

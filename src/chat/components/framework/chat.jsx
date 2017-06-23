@@ -7,10 +7,11 @@ import {
 } from '../../func/form_field_func';
 
 import TextArea from '../../../lib/form_fields/textarea';
+import socketIO from '../../func/chat.socket';
 
 /**
  * Parent component containing all chat framework nodes
- * @returns {Element} main chat element
+ * @returns {Node} main chat element
  */
 function Chat(props) {
   // Prior to the repaint, set the focus of the scroll to the bottom of the chat
@@ -37,6 +38,9 @@ function Chat(props) {
     );
   });
 
+  // Initialize socket connection
+  socketIO.initialize(props.dispatch, props.agentGroupId);
+
   return (
     <div id="chat-node">
       <div className="chat-body">
@@ -47,23 +51,35 @@ function Chat(props) {
       <div className="chat-footer">
         <TextArea
           id="send-input"
-          key="send-input"
           value={getValue(props.fields, 'send-input')}
-          onChange={setOnChangeFormField(props.dispatch, 'send-input')}
+          onChange={setOnChangeFormField(
+            props.dispatch,
+            'send-input',
+          )}
           config={{
             placeholder: 'Type your message here',
           }}
         />
         <button
-          onClick={() => sendClientMessage()}
-        >Send</button>
+          onClick={() => {
+            const input = props.fields['send-input'];
+            if (input && input.value) {
+              socketIO.sendClientMessage(props.dispatch, input.value);
+            }
+          }}
+        >
+          Send
+        </button>
       </div>
     </div>
   );
 }
 
 Chat.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  fields: PropTypes.objectOf(PropTypes.any).isRequired,
   messages: PropTypes.arrayOf(PropTypes.any).isRequired,
+  agentGroupId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -71,12 +87,14 @@ const mapStateToProps = (state) => {
     return {
       messages: state.chatWindow.messages,
       fields: state.chatWindow.fields,
+      agentGroupId: state.chatWindow.nodes[state.chatWindow.settings.nodeId].agentGroup,
     };
   }
 
   return {
     fields: state.fields,
     messages: state.messages,
+    agentGroupId: state.nodes[state.settings.nodeId].agentGroup,
   };
 };
 

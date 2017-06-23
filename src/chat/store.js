@@ -9,25 +9,25 @@ import rootReducer from './reducers';
 const chatWindowDefaultConfig = config => (
   {
     settings: {
-      isVisible: false,
+      isVisible: false, // if true, the chat window is visible
 
-      initialNode: config.initialNode,
+      initialNode: config.initialNode, // initial node for storing, read only
 
-      nodeId: config.initialNode,
+      nodeId: config.initialNode, // nodeId is the actual current node
 
-      isDraggable: config.isDraggable,
+      isDraggable: config.isDraggable, // if true, enable dragging functionality
 
-      hasCircularTabbing: config.hasCircularTabbing,
+      hasCircularTabbing: config.hasCircularTabbing, // enable circular tabbing if true
 
-      minWidth: config.minWidth,
+      minWidth: config.minWidth, // min width of chat window
 
-      minHeight: config.minHeight,
+      minHeight: config.minHeight, // min height of chat window
 
-      title: config.title,
+      title: config.title, // title of chat window
 
-      left: undefined,
+      left: undefined, // chat window position left
 
-      top: undefined,
+      top: undefined, // chat window postion top
     },
 
     nodes: config.nodes,
@@ -37,6 +37,10 @@ const chatWindowDefaultConfig = config => (
     messages: [
       config.autoOpener,
     ],
+
+    connect: {
+      clientId: window.dsChatPathLocation ? window.dsChatPathLocation.split('config-')[1] : null,
+    },
   }
 );
 

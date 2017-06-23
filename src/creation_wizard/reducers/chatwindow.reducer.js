@@ -1,5 +1,6 @@
 import chatSettings from '../../chat/reducers/settings.reducer';
 import chatFields from '../../chat/reducers/fields.reducer';
+import chatMessages from '../../chat/reducers/messages.reducer';
 import { chatWindowDefaultConfig } from '../../chat/store';
 
 /**
@@ -26,6 +27,12 @@ function chatWindow(state = {}, action) {
       );
 
       return Object.assign({}, state, { fields });
+    }
+
+    case 'UPDATE_CHAT_MESSAGES': {
+      const messages = chatMessages(state.messages, action);
+
+      return Object.assign({}, state, { messages });
     }
 
     case 'ADD_CONFIG':

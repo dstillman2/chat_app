@@ -8,7 +8,7 @@
     "build-flow": "flow",
     "build-uglify-css": "uglifycss chat_window/sass/_base.scss:chat_window/static/style.min.css",
     "build-webpack": "NODE_ENV=production webpack",
-    "watch-css-chat-window": "sass --watch ./src/chat/sass/_base.scss:./src/static/css/chat.window.style.css",
+    "watch-css-chat-window": "sass --watch ./src/chat/sass/default/index.scss:./src/static/css/chat.window.style.css",
     "watch-css-creation-wizard": "sass --watch ./src/creation_wizard/sass/_base.scss:./src/static/css/creation.wizard.style.css",
     "watch-webpack": "webpack-dev-server",
     "start-server": "source env-dev.env && nodemon ./src/server --exec babel-node --presets es2015,react"
@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "async": "^2.3.0",
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "helmet": "^3.5.0",
     "immutable": "^3.8.1",

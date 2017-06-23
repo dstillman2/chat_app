@@ -90,8 +90,10 @@ const dragAndDrop = function dragAndDrop(dispatch) {
         if (!borderDragFlag) {
           borderDragFlag = true;
           window.requestAnimationFrame(() => {
-            borderElem.style.left = positionLeft;
-            borderElem.style.top = positionTop;
+            if (borderElem) {
+              borderElem.style.left = positionLeft;
+              borderElem.style.top = positionTop;
+            }
 
             borderDragFlag = false;
           });
