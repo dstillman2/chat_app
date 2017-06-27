@@ -8,8 +8,6 @@ io.on('connection', (socket) => {
     });
 
     socket.join(data.roomId);
-
-    // add new user to redis list
   });
 
   socket.on('leave', (data) => {

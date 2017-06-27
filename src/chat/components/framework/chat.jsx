@@ -87,14 +87,18 @@ const mapStateToProps = (state) => {
     return {
       messages: state.chatWindow.messages,
       fields: state.chatWindow.fields,
-      agentGroupId: state.chatWindow.nodes[state.chatWindow.settings.nodeId].agentGroup,
+      agentGroupId: Number(
+        state.chatWindow.nodes[state.chatWindow.settings.nodeId].agentGroup,
+      ),
     };
   }
 
   return {
     fields: state.fields,
     messages: state.messages,
-    agentGroupId: state.nodes[state.settings.nodeId].agentGroup,
+    agentGroupId: Number(
+      state.nodes[state.settings.nodeId].agentGroup,
+    ),
   };
 };
 

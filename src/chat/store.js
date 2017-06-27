@@ -39,7 +39,7 @@ const chatWindowDefaultConfig = config => (
     ],
 
     connect: {
-      clientId: window.dsChatPathLocation ? window.dsChatPathLocation.split('config-')[1] : null,
+      clientId: window.dsChatPathLocation,
     },
   }
 );

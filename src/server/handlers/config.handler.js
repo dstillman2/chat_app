@@ -10,7 +10,7 @@ const configurationHandler = {
 
     mysql.query(query, (err, results) => {
       if (err || results.length !== 1) {
-        res.send('404 Not Found');
+        res.status(404).send('404 Config Not Found');
 
         return;
       }
